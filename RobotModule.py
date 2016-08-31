@@ -35,6 +35,8 @@ class Robot:
     left_voltage_scale = 1
     right_voltage_scale = 1
 
+    step_time = 0.5
+
     def __init__(self,revision=2):
 
         self.pwm_scale = 1
@@ -86,29 +88,31 @@ class Robot:
         GPIO.output(self.RIGHT_1_PIN, right_dir)
         GPIO.output(self.RIGHT_2_PIN, not right_dir)
 
-    def forward(self, seconds=0):
+    def forward(self, steps = 1): # 1 step by default
+        steps = steps * self.step_time
         self.set_motors(self.left_voltage_scale, 0, self.right_voltage_scale, 0)
-        if seconds > 0:
-            time.sleep(seconds)
+        if steps > 0:
+            time.sleep(steps)
             self.stop()
 
     def stop(self):
         self.set_motors(0, 0, 0, 0)
 
-    def reverse(self, seconds=0, speed=1.0):
-        self.set_motors(speed, 1, speed, 1)
+    def reverse(self, steps = 1): # 1 step by default
+        steps = steps * self.step_time
+        self.set_motors(self.left_voltage_scale, 1, self.right_voltage_scale, 1)
+        if steps > 0:
+            time.sleep(steps)
+            self.stop()
+
+    def left(self, seconds=0):
+        self.set_motors(self.left_voltage_scale, 0, self.right_voltage_scale, 1)
         if seconds > 0:
             time.sleep(seconds)
             self.stop()
 
-    def left(self, seconds=0, speed=0.5):
-        self.set_motors(speed, 0, speed, 1)
-        if seconds > 0:
-            time.sleep(seconds)
-            self.stop()
-
-    def right(self, seconds=0, speed=0.5):
-        self.set_motors(speed, 1, speed, 0)
+    def right(self, seconds=0):
+        self.set_motors(self.left_voltage_scale, 1, self.right_voltage_scale, 0)
         if seconds > 0:
             time.sleep(seconds)
             self.stop()
