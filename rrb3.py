@@ -4,7 +4,7 @@ import RPi.GPIO as GPIO
 import time
 
 
-class Robot:
+class RRB3:
 
     MOTOR_DELAY = 0.2 #See what happens when you change delay
 
@@ -31,13 +31,12 @@ class Robot:
     old_left_dir = -1
     old_right_dir = -1
 
-    voltage = 5
-    left_voltage_scale = 1
-    right_voltage_scale = 1
+    def __init__(self, battery_voltage=9.0, motor_voltage=6.0, revision=2):
 
-    def __init__(self,revision=2):
+        self.pwm_scale = float(motor_voltage) / float(battery_voltage)
 
-        self.pwm_scale = 1
+        if self.pwm_scale > 1:
+            print("WARNING: Motor voltage is higher than battery votage. Motor may run slow.")
 
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
@@ -86,8 +85,8 @@ class Robot:
         GPIO.output(self.RIGHT_1_PIN, right_dir)
         GPIO.output(self.RIGHT_2_PIN, not right_dir)
 
-    def forward(self, seconds=0):
-        self.set_motors(self.left_voltage_scale, 0, self.right_voltage_scale, 0)
+    def forward(self, seconds=0, speed=1.0):
+        self.set_motors(speed, 0, speed, 0)
         if seconds > 0:
             time.sleep(seconds)
             self.stop()
@@ -112,6 +111,30 @@ class Robot:
         if seconds > 0:
             time.sleep(seconds)
             self.stop()
+
+    def step_forward(self, delay, num_steps):
+        for i in range(0, num_steps):
+            self.set_driver_pins(1, 1, 1, 0)
+            time.sleep(delay)
+            self.set_driver_pins(1, 1, 1, 1)
+            time.sleep(delay)
+            self.set_driver_pins(1, 0, 1, 1)
+            time.sleep(delay)
+            self.set_driver_pins(1, 0, 1, 0)
+            time.sleep(delay)
+        self.set_driver_pins(0, 0, 0, 0)
+
+    def step_reverse(self, delay, num_steps):
+        for i in range(0, num_steps):
+            self.set_driver_pins(1, 0, 1, 0)
+            time.sleep(delay)
+            self.set_driver_pins(1, 0, 1, 1)
+            time.sleep(delay)
+            self.set_driver_pins(1, 1, 1, 1)
+            time.sleep(delay)
+            self.set_driver_pins(1, 1, 1, 0)
+            time.sleep(delay)
+        self.set_driver_pins(0, 0, 0, 0)
 
     def sw1_closed(self):
         return not GPIO.input(self.SW1_PIN)
