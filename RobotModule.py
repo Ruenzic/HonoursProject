@@ -39,7 +39,7 @@ class Robot:
 
     step_time = 0.5
 
-    turn_time = 0.3
+    turn_time = 0.25
 
     start_pos = [0,0]
     start_rot = 0
