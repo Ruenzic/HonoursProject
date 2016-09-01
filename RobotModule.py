@@ -233,7 +233,7 @@ class Robot:
             # rotate towards the start
             if (self.current_rot >= 0 and self.current_rot < 4):
                 self.left(self.current_rot)
-            elif (self.current_rot > 4):
+            elif (self.current_rot >= 4):
                 self.right(8 - self.current_rot)
 
         self.current_pos[0] = 0
