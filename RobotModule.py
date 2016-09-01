@@ -36,7 +36,7 @@ class Robot:
 
     step_time = 0.5
 
-    turn_time = 0.4
+    turn_time = 0.2
 
     start_pos = [0,0]
     start_rot = 0
@@ -98,6 +98,9 @@ class Robot:
             self.stop()    # Delay between each movement
             time.sleep(self.move_delay)
         self.manage_pos(steps)
+        print(self.current_rot) # Debugging
+        print(self.current_pos[0])
+        print(self.current_pos[1])
 
     def stop(self):
         self.set_motors(0, 0, 0, 0)
@@ -109,6 +112,9 @@ class Robot:
             self.stop()    # Delay between each movement
             time.sleep(self.move_delay)
         self.manage_pos(steps * -1) # Make the steps negative so that the manage_pos func will move robot in correct dir based on its rot
+        print(self.current_rot) # Debugging
+        print(self.current_pos[0])
+        print(self.current_pos[1])
 
     def left(self, steps=1): # 45 degrees by default
         if (steps >= 8):
@@ -147,9 +153,6 @@ class Robot:
         elif (self.current_rot < 0):
             self.current_rot += 8
 
-        print(self.current_rot) # Debugging
-        print(self.current_pos[0])
-        print(self.current_pos[1])
 
     def manage_pos(self, steps):
 
