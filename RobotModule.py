@@ -29,7 +29,7 @@ class Robot:
     old_left_dir = -1
     old_right_dir = -1
 
-    move_delay = 0.2 #See what happens when you change delay
+    move_delay = 0.4 #See what happens when you change delay
     voltage = 5
     left_voltage_scale = 1
     right_voltage_scale = 1
@@ -93,7 +93,7 @@ class Robot:
 
     def forward(self, steps = 1): # 1 step by default
         for num in range(0,steps):
-            self.set_motors(self.left_voltage_scale, 0, self.right_voltage_scale, 0)
+            self.set_motors(self.left_voltage_scale, 1, self.right_voltage_scale, 1)
             time.sleep(self.step_time)
             self.stop()    # Delay between each movement
             time.sleep(self.move_delay)
@@ -104,7 +104,7 @@ class Robot:
 
     def reverse(self, steps = 1): # 1 step by default
         for num in range(0,steps):
-            self.set_motors(self.left_voltage_scale, 1, self.right_voltage_scale, 1)
+            self.set_motors(self.left_voltage_scale, 0, self.right_voltage_scale, 0)
             time.sleep(self.step_time)
             self.stop()    # Delay between each movement
             time.sleep(self.move_delay)
@@ -191,7 +191,7 @@ class Robot:
                     self.left(self.current_rot)
                 elif (self.current_rot > 4):
                     self.right(8 - self.current_rot)
-            self.forward(self.current_pos[1])
+            self.forward(self.current_pos[1] * -1) # Change negative to positive
 
         # Move on the x axis
         if (self.current_pos[0] > 0):
@@ -214,7 +214,7 @@ class Robot:
                     self.right(2 - self.current_rot)
                 elif (self.current_rot > 6):
                     self.right(8 - self.current_rot + 1)
-            self.forward(self.current_pos[0])
+            self.forward(self.current_pos[0] * -1) # Change the negative to positive
 
 
         # Set the rotation of the robot back to the original direction
