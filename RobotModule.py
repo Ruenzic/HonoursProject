@@ -102,7 +102,7 @@ class Robot:
     def stop(self):
         self.set_motors(0, 0, 0, 0)
 
-     def reverse(self, steps = 1): # 1 step by default
+    def reverse(self, steps = 1): # 1 step by default
         for num in range(0,steps):
             self.set_motors(self.left_voltage_scale, 1, self.right_voltage_scale, 1)
             time.sleep(self.step_time)
