@@ -219,12 +219,12 @@ class Robot:
 
         # Set the rotation of the robot back to the original direction
         # Check to see if rotation is bigger or smaller than 4, then rotate the shorter direction
-         if (self.current_rot != 0):
-                # rotate towards the start
-                if (self.current_rot >= 0 and self.current_rot < 4):
-                    self.left(self.current_rot)
-                elif (self.current_rot > 4):
-                    self.right(8 - self.current_rot)
+        if (self.current_rot != 0):
+            # rotate towards the start
+            if (self.current_rot >= 0 and self.current_rot < 4):
+                self.left(self.current_rot)
+            elif (self.current_rot > 4):
+                self.right(8 - self.current_rot)
 
 
 
