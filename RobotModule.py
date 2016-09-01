@@ -147,6 +147,10 @@ class Robot:
         elif (self.current_rot < 0):
             self.current_rot += 8
 
+        print(self.current_rot) # Debugging
+        print(self.current_pos[0])
+        print(self.current_pos[1])
+
     def manage_pos(self, steps):
 
         self.manage_rot() # Make sure rotation is in positive form for ease
@@ -226,6 +230,9 @@ class Robot:
             elif (self.current_rot > 4):
                 self.right(8 - self.current_rot)
 
+        self.current_pos[0] = 0
+        self.current_pos[1] = 0
+        self.current_rot = 0
 
 
 
