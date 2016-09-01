@@ -34,6 +34,9 @@ class Robot:
     left_voltage_scale = 0.8
     right_voltage_scale = 0.8
 
+    left_turn_voltage = 1
+    right_turn_voltage = 1
+
     step_time = 0.5
 
     turn_time = 0.3
@@ -120,7 +123,7 @@ class Robot:
         if (steps >= 8):
             steps -= 8 # Remove 360 degree turns
         for num in range(0,steps):
-            self.set_motors(self.left_voltage_scale, 1, self.right_voltage_scale, 0)
+            self.set_motors(self.left_turn_voltage, 1, self.right_turn_voltage, 0)
             time.sleep(self.turn_time)
             self.stop()    # Delay between each movement
             time.sleep(self.move_delay)
@@ -131,7 +134,7 @@ class Robot:
         if (steps >= 8):
             steps -= 8 # Remove 360 degree turns
         for num in range(0,steps):
-            self.set_motors(self.left_voltage_scale, 0, self.right_voltage_scale, 1)
+            self.set_motors(self.left_turn_voltage, 0, self.right_turn_voltage, 1)
             time.sleep(self.turn_time)
             self.stop()    # Delay between each movement
             time.sleep(self.move_delay)
