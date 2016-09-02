@@ -20,3 +20,5 @@
 
 - reset method that takes into account obstacles
 - reset manually if using obsacles? 
+
+- Make a method that will allow the robot to move foward or backwards indefinately without any delay or sleep

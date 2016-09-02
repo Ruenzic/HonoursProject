@@ -183,29 +183,39 @@ class Robot:
             self.current_pos[1] += steps
 
     def reset(self):
+
+        # Reverse if the robot has the correct opposite rotation that it needs to be in
+        # [TODO] Move diagonally?
+
         # Move the robot back to the start position
         # Move on the y axis
         if (self.current_pos[1] > 0):
-            if (self.current_rot != 4):
+            if (self.current_rot != 4 and self.current_rot != 0):
                 # rotate towards the start
                 if (self.current_rot >= 0 and self.current_rot < 4):
                     self.right(4 - self.current_rot)
                 elif (self.current_rot > 4):
                     self.left(self.current_rot - 4)
-            self.forward(self.current_pos[1])
+            if (self.current_rot == 4):
+                self.forward(self.current_pos[1])
+            elif (self.current_rot == 0):
+                self.reverse(self.current_pos[1])
 
         elif (self.current_pos[1] < 0):
-            if (self.current_rot != 0):
+            if (self.current_rot != 0 and self.current_rot != 4):
                 # rotate towards the start
                 if (self.current_rot >= 0 and self.current_rot < 4):
                     self.left(self.current_rot)
                 elif (self.current_rot > 4):
                     self.right(8 - self.current_rot)
-            self.forward(self.current_pos[1] * -1) # Change negative to positive
+            if (self.current_rot == 0):
+                self.forward(self.current_pos[1] * -1) # Change negative to positive
+            elif (self.current_rot == 4):
+                self.reverse(self.current_pos[1] * -1)
 
         # Move on the x axis
         if (self.current_pos[0] > 0):
-            if (self.current_rot != 6):
+            if (self.current_rot != 6 and self.current_rot != 2):
                 # rotate towards the start
                 if (self.current_rot >= 2 and self.current_rot < 6):
                     self.right(6 - self.current_rot)
@@ -213,10 +223,13 @@ class Robot:
                     self.left(2 + self.current_rot)
                 elif (self.current_rot > 6):
                     self.left(7 - self.current_rot)
-            self.forward(self.current_pos[0])
+            if (self.current_rot == 6):
+                self.forward(self.current_pos[0])
+            elif (self.current_rot == 2):
+                self.reverse(self.current_pos[0])
 
         elif (self.current_pos[0] < 0):
-            if (self.current_rot != 2):
+            if (self.current_rot != 2 and self.current_rot != 6):
                 # rotate towards the start
                 if (self.current_rot >= 2 and self.current_rot < 6):
                     self.left(self.current_rot - 2)
@@ -224,7 +237,10 @@ class Robot:
                     self.right(2 - self.current_rot)
                 elif (self.current_rot > 6):
                     self.right(8 - self.current_rot + 1)
-            self.forward(self.current_pos[0] * -1) # Change the negative to positive
+            if (self.current_rot == 2):
+                self.forward(self.current_pos[0] * -1) # Change the negative to positive
+            elif (self.current_rot == 6):
+                self.reverse(self.currrent_pos[0] * -1)
 
 
         # Set the rotation of the robot back to the original direction
@@ -240,12 +256,19 @@ class Robot:
         self.current_pos[1] = 0
         self.current_rot = 0
 
+    #{TODO} Not sure if we want these 2 methods below, wont be able to tell where the robot is anymore. Could add in delay, but then may as well just use forward
+    #[TODO] Allow the use of this for when students are with the robot and can reset the robot manually after.
 
+    def contF(self): # Move the robot forward continuously with no sleep or delay
+        self.set_motors(self.left_voltage_scale, 1, self.right_voltage_scale, 1)
 
+    def contR(self): # Move the robot backwards continuously with no sleep or delay
+       self.set_motors(self.left_voltage_scale, 0, self.right_voltage_scale, 0)
 
-
-
-
+    def obstacleReset(self): # Reset method that takes into account obstacles on the grid
+        self.reset()
+        # Maybe have the student enter the grid positions, separated by a space, eg '(0,4) (1,4)' where there are obstacles
+        # Robot will then move back to the start while avoiding these.
 
 
 
