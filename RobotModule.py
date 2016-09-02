@@ -1,4 +1,5 @@
 # RobotModule.py Library
+__author__ = 'Josh di Bona'
 
 import RPi.GPIO as GPIO
 import time
