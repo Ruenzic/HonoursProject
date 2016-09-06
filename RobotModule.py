@@ -118,9 +118,9 @@ class Robot:
                 self.stop()    # Delay between each movement
                 time.sleep(self.move_delay)
             self.manage_pos(steps)
-            print(self.current_rot) # Debugging
-            print(self.current_pos[0])
-            print(self.current_pos[1])
+            print("Rotation:",self.current_rot) # Debugging
+            print("X:",self.current_pos[0])
+            print("Y:",self.current_pos[1])
 
     def stop(self):
         self.set_motors(0, 0, 0, 0)
@@ -141,9 +141,9 @@ class Robot:
                 self.stop()    # Delay between each movement
                 time.sleep(self.move_delay)
             self.manage_pos(steps * -1) # Make the steps negative so that the manage_pos func will move robot in correct dir based on its rot
-            print(self.current_rot) # Debugging
-            print(self.current_pos[0])
-            print(self.current_pos[1])
+            print("Rotation:",self.current_rot) # Debugging
+            print("X:",self.current_pos[0])
+            print("Y:",self.current_pos[1])
 
     def left(self, steps=1): # 45 degrees by default
         self.stop() # Stop motors before moving them again
@@ -157,6 +157,9 @@ class Robot:
             time.sleep(self.move_delay)
         self.current_rot -= steps
         self.manage_rot()
+        print("Rotation:",self.current_rot) # Debugging
+        print("X:",self.current_pos[0])
+        print("Y:",self.current_pos[1])
 
     def right(self, steps=1): # 45 degrees by default
         self.stop() # Stop motors before moving them again
@@ -170,6 +173,9 @@ class Robot:
             time.sleep(self.move_delay)
         self.current_rot += steps
         self.manage_rot()
+        print("Rotation:",self.current_rot) # Debugging
+        print("X:",self.current_pos[0])
+        print("Y:",self.current_pos[1])
 
     def set_led1(self, state):
         GPIO.output(self.LED1_PIN, state)
