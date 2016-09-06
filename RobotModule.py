@@ -97,7 +97,7 @@ class Robot:
 
     def forward(self, steps = 1): # 1 step by default
         self.stop() # Stop motors before moving them again
-        print("Moving Robot Forward",steps,"Steps") # Debugging statement
+        print("Moving Robot Forward %d Steps" % steps) # Debugging statement
         for num in range(0,steps):
             self.set_motors(self.left_voltage_scale, 1, self.right_voltage_scale, 1)
             time.sleep(self.step_time)
