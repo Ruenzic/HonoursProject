@@ -16,4 +16,4 @@ ip = urlopen('http://ipinfo.io/ip').read().strip()
 content = current_time + "   " + addr
 gg.profile().edit(id='1a9229e4de7ebaa8cc617163a52ced2f', content=content)
 
-print(content)
+#print(content)
