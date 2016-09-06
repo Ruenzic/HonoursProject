@@ -48,6 +48,9 @@ class Robot:
     current_pos = [0,0]
     current_rot = 0
 
+    x_lim = 5 # Bounds for the grid/enclosure. X[-5,5]
+    y_lim = 5 # Bounds for the grid/enclosure. Y[-5,5]
+
     def __init__(self,revision=2):
 
         self.pwm_scale = 1
@@ -121,19 +124,23 @@ class Robot:
 
     def reverse(self, steps = 1): # 1 step by default
         self.stop() # Stop motors before moving them again
-        print("Moving Robot Backward %d Steps" % steps) # Debugging statement
-        for num in range(0,steps):
-            self.set_motors(self.left_voltage_scale, 0, self.right_voltage_scale, 0)
-            if (self.current_rot == 1 or self.current_rot == 5 or self.current_rot == 7 or self.current_rot == 3):
-                time.sleep(self.step_time_diagonal)
-            else:
-                time.sleep(self.step_time)
-            self.stop()    # Delay between each movement
-            time.sleep(self.move_delay)
-        self.manage_pos(steps * -1) # Make the steps negative so that the manage_pos func will move robot in correct dir based on its rot
-        print(self.current_rot) # Debugging
-        print(self.current_pos[0])
-        print(self.current_pos[1])
+
+        if (self.check_pos(self.current_pos[0], self.current_pos[1], steps)):
+            print("Requested move will go out of bounds and therefore can't be performed")
+        else:
+            print("Moving Robot Backward %d Steps" % steps) # Debugging statement
+            for num in range(0,steps):
+                self.set_motors(self.left_voltage_scale, 0, self.right_voltage_scale, 0)
+                if (self.current_rot == 1 or self.current_rot == 5 or self.current_rot == 7 or self.current_rot == 3):
+                    time.sleep(self.step_time_diagonal)
+                else:
+                    time.sleep(self.step_time)
+                self.stop()    # Delay between each movement
+                time.sleep(self.move_delay)
+            self.manage_pos(steps * -1) # Make the steps negative so that the manage_pos func will move robot in correct dir based on its rot
+            print(self.current_rot) # Debugging
+            print(self.current_pos[0])
+            print(self.current_pos[1])
 
     def left(self, steps=1): # 45 degrees by default
         self.stop() # Stop motors before moving them again
@@ -177,7 +184,7 @@ class Robot:
             self.current_rot += 8
 
 
-    def manage_pos(self, steps):
+    def manage_pos(self, steps): # Method to manage the position of the robot in the grid world (keep track)
 
         self.manage_rot() # Make sure rotation is in positive form for ease
 
@@ -201,6 +208,36 @@ class Robot:
         elif (self.current_rot == 7): # Decrease x, Increase y
             self.current_pos[0] -= steps
             self.current_pos[1] += steps
+
+    def check_pos(self, x, y, steps): # Method to check if moving the robot will move it out of bounds.
+
+        self.manage_rot() # Make sure rotation is in positive form for ease
+
+        if (self.current_rot == 0): # Increase the y value by the number of steps
+            y += steps
+        elif (self.current_rot == 1): # Increase x and y
+            x += steps
+            y += steps
+        elif (self.current_rot == 2): # Increase x
+            x += steps
+        elif (self.current_rot == 3): # Increase x, Decrease y
+            x += steps
+            y -= steps
+        elif (self.current_rot == 4): # Decrease y
+            y -= steps
+        elif (self.current_rot == 5): # Decrease x and y
+            x -= steps
+            y -= steps
+        elif (self.current_rot == 6): # Decrease x
+            x -= steps
+        elif (self.current_rot == 7): # Decrease x, Increase y
+            x -= steps
+            y += steps
+
+        if (x > 5 or x < -5 or y > 5 or y < -5):
+            return True # The next move violates the boundaries
+        else:
+            return False # The next move won't violate the boundaries
 
     def reset(self):
         print("Resetting Position of Robot")

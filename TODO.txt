@@ -21,4 +21,11 @@
 - reset method that takes into account obstacles
 - reset manually if using obsacles? 
 
-- Make a method that will allow the robot to move foward or backwards indefinately without any delay or sleep
+
+- Git wiki
+- Examples
+- Tasks
+
+- Test cont turns
+- Make methods to return pos and rot to user
+- change cronjob back to say 10 minutes

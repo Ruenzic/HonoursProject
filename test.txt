@@ -5,8 +5,3 @@ crontab -e
 @reboot /usr/bin/python /home/pi/HonoursProject/IPUpdater.py >/dev/null 2>&1
 */30 * * * * /usr/bin/python /home/pi/HonoursProject/IPUpdater.py >/dev/null 2>&1 
 
-- Git wiki
-
-- Test cont turns
-- Make methods to return pos and rot to user
-- change cronjob back to say 10 minutes
