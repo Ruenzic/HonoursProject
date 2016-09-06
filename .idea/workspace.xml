@@ -24,13 +24,10 @@
       <file leaf-file-name="RobotModule.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/RobotModule.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.62541807">
-              <caret line="126" column="52" selection-start-line="126" selection-start-column="52" selection-end-line="126" selection-end-column="52" />
+            <state vertical-scroll-proportion="-1.3266444">
+              <caret line="47" column="19" selection-start-line="47" selection-start-column="19" selection-end-line="47" selection-end-column="19" />
               <folding>
                 <element signature="e#54#77#0" expanded="true" />
-                <element signature="e#875#1902#0" expanded="false" />
-                <element signature="e#1980#2118#0" expanded="false" />
-                <element signature="e#2201#2536#0" expanded="false" />
                 <element signature="e#5339#5471#0" expanded="false" />
                 <element signature="e#5516#6551#0" expanded="false" />
                 <element signature="e#6582#9870#0" expanded="false" />
@@ -308,9 +305,6 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#54#77#0" expanded="true" />
-            <element signature="e#875#1902#0" expanded="false" />
-            <element signature="e#1980#2118#0" expanded="false" />
-            <element signature="e#2201#2536#0" expanded="false" />
             <element signature="e#5339#5471#0" expanded="false" />
             <element signature="e#5516#6551#0" expanded="false" />
             <element signature="e#6582#9870#0" expanded="false" />
@@ -324,9 +318,6 @@
           <caret line="18" column="16" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="16" />
           <folding>
             <element signature="e#54#77#0" expanded="true" />
-            <element signature="e#875#1902#0" expanded="false" />
-            <element signature="e#1980#2118#0" expanded="false" />
-            <element signature="e#2201#2536#0" expanded="false" />
             <element signature="e#5339#5471#0" expanded="false" />
             <element signature="e#5516#6551#0" expanded="false" />
             <element signature="e#6582#9870#0" expanded="false" />
@@ -347,9 +338,6 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#54#77#0" expanded="true" />
-            <element signature="e#875#1902#0" expanded="false" />
-            <element signature="e#1980#2118#0" expanded="false" />
-            <element signature="e#2201#2536#0" expanded="false" />
             <element signature="e#5339#5471#0" expanded="false" />
             <element signature="e#5516#6551#0" expanded="false" />
             <element signature="e#6582#9870#0" expanded="false" />
@@ -363,9 +351,6 @@
           <caret line="18" column="16" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="16" />
           <folding>
             <element signature="e#54#77#0" expanded="true" />
-            <element signature="e#875#1902#0" expanded="false" />
-            <element signature="e#1980#2118#0" expanded="false" />
-            <element signature="e#2201#2536#0" expanded="false" />
             <element signature="e#5339#5471#0" expanded="false" />
             <element signature="e#5516#6551#0" expanded="false" />
             <element signature="e#6582#9870#0" expanded="false" />
@@ -406,13 +391,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/RobotModule.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.62541807">
-          <caret line="126" column="52" selection-start-line="126" selection-start-column="52" selection-end-line="126" selection-end-column="52" />
+        <state vertical-scroll-proportion="-1.3266444">
+          <caret line="47" column="19" selection-start-line="47" selection-start-column="19" selection-end-line="47" selection-end-column="19" />
           <folding>
             <element signature="e#54#77#0" expanded="true" />
-            <element signature="e#875#1902#0" expanded="false" />
-            <element signature="e#1980#2118#0" expanded="false" />
-            <element signature="e#2201#2536#0" expanded="false" />
             <element signature="e#5339#5471#0" expanded="false" />
             <element signature="e#5516#6551#0" expanded="false" />
             <element signature="e#6582#9870#0" expanded="false" />
