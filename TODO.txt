@@ -14,4 +14,5 @@
 - Tasks
 
 - Test cont turns
-- Make methods to return pos and rot to user
+
+- Use Jeremy's sensor to check if about to hit an obstacle, if so stop motors, in the contForward and Reverse

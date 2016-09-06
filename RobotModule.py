@@ -35,8 +35,8 @@ class Robot:
     left_voltage_scale = 0.8
     right_voltage_scale = 0.8
 
-    left_turn_voltage = 1
-    right_turn_voltage = 1
+    left_turn_voltage = 0.8
+    right_turn_voltage = 0.8
 
     step_time = 0.5
     step_time_diagonal = 0.707
@@ -177,10 +177,10 @@ class Robot:
         print("X:",self.current_pos[0])
         print("Y:",self.current_pos[1])
 
-    def set_led1(self, state):
+    def set_led1(self, state): # 0/1 for state
         GPIO.output(self.LED1_PIN, state)
 
-    def set_led2(self, state):
+    def set_led2(self, state): # 0/1 for state
         GPIO.output(self.LED2_PIN, state)
 
     def cleanup(self):
@@ -323,6 +323,7 @@ class Robot:
         self.current_rot = 0
 
     #[TODO] Allow the use of this for when students are with the robot and can reset the robot manually after.
+    #[TODO] Use Jeremy's sensor to check if about to hit an obstacle, if so stop motors, in the contForward and Reverse
 
     def contForward(self): # Move the robot forward continuously with no sleep or delay
         self.stop() # Stop motors before moving them again
@@ -349,7 +350,11 @@ class Robot:
         # Maybe have the student enter the grid positions, separated by a space, eg '(0,4) (1,4)' where there are obstacles
         # Robot will then move back to the start while avoiding these.
 
+    def get_pos(self): # Return [x,y] position of robot to the user
+        return self.current_pos
 
+    def get_rot(self): # Return rotation variable to user
+        return self.current_rot
 
 
 
