@@ -97,7 +97,7 @@ class Robot:
 
     def forward(self, steps = 1): # 1 step by default
         self.stop() # Stop motors before moving them again
-        print("Moving Robot Forward ", steps, "Steps") # Debugging statement
+        print("Moving Robot Forward",steps,"Steps") # Debugging statement
         for num in range(0,steps):
             self.set_motors(self.left_voltage_scale, 1, self.right_voltage_scale, 1)
             time.sleep(self.step_time)
@@ -113,7 +113,7 @@ class Robot:
 
     def reverse(self, steps = 1): # 1 step by default
         self.stop() # Stop motors before moving them again
-        print("Moving Robot Backwards ", steps, "Steps") # Debugging statement
+        print("Moving Robot Backwards",steps,"Steps") # Debugging statement
         for num in range(0,steps):
             self.set_motors(self.left_voltage_scale, 0, self.right_voltage_scale, 0)
             time.sleep(self.step_time)
@@ -126,7 +126,7 @@ class Robot:
 
     def left(self, steps=1): # 45 degrees by default
         self.stop() # Stop motors before moving them again
-        print("Turning Robot Right ", steps, "Steps") # Debugging statement
+        print("Turning Robot Right",steps,"Steps") # Debugging statement
         if (steps >= 8):
             steps -= 8 # Remove 360 degree turns
         for num in range(0,steps):
@@ -139,7 +139,7 @@ class Robot:
 
     def right(self, steps=1): # 45 degrees by default
         self.stop() # Stop motors before moving them again
-        print("Turning Robot Right ", steps, "Steps") # Debugging statement
+        print("Turning Robot Right",steps,"Steps") # Debugging statement
         if (steps >= 8):
             steps -= 8 # Remove 360 degree turns
         for num in range(0,steps):
