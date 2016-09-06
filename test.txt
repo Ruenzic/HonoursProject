@@ -1,0 +1,13 @@
+pip install simplegist
+
+crontab -e
+
+@reboot /usr/bin/python /home/pi/update_ip.py >/dev/null 2>&1
+*/30 * * * * /usr/bin/python /home/pi/update_ip.py >/dev/null 2>&1 
+
+- Stop motors before doing anything
+- Print statememts for debugging for students
+- Git wiki
+- Turn until stopped method
+- Go forward more when at 45, because circle
+- Set up automatic ip updating
