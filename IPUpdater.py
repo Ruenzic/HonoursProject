@@ -7,7 +7,7 @@ import os
 
 
 f = os.popen('ifconfig wlan0 | grep "inet\ addr" | cut -d: -f2 | cut -d" " -f1')
-addr = f.read().strip()
+addr = str(f.read().strip())
 
 
 gg = Simplegist(username='Ruenzic', api_token='4d794eba5326a8e3b0d552f7a78ed91742cc7325')
