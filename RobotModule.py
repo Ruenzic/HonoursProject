@@ -101,23 +101,26 @@ class Robot:
 
     def forward(self, steps = 1): # 1 step by default
         self.stop() # Stop motors before moving them again
-        print("Moving Robot Forward %d Steps" % steps) # Debugging statement
 
-        # When moving a step forward while at 45 degrees, so rotations 1,5,7,3. You must move root(2) steps forward for every step.
-        # Use step_time_diagonal instead of normal step_time
+        if (self.check_pos(self.current_pos[0], self.current_pos[1], steps)):
+            print("Requested move will go out of bounds and therefore can't be performed")
+        else:
+            print("Moving Robot Forward %d Steps" % steps) # Debugging statement
 
-        for num in range(0,steps):
-            self.set_motors(self.left_voltage_scale, 1, self.right_voltage_scale, 1)
-            if (self.current_rot == 1 or self.current_rot == 5 or self.current_rot == 7 or self.current_rot == 3):
-                time.sleep(self.step_time_diagonal)
-            else:
-                time.sleep(self.step_time)
-            self.stop()    # Delay between each movement
-            time.sleep(self.move_delay)
-        self.manage_pos(steps)
-        print(self.current_rot) # Debugging
-        print(self.current_pos[0])
-        print(self.current_pos[1])
+            # When moving a step forward while at 45 degrees, so rotations 1,5,7,3. You must move root(2) steps forward for every step.
+            # Use step_time_diagonal instead of normal step_time
+            for num in range(0,steps):
+                self.set_motors(self.left_voltage_scale, 1, self.right_voltage_scale, 1)
+                if (self.current_rot == 1 or self.current_rot == 5 or self.current_rot == 7 or self.current_rot == 3):
+                    time.sleep(self.step_time_diagonal)
+                else:
+                    time.sleep(self.step_time)
+                self.stop()    # Delay between each movement
+                time.sleep(self.move_delay)
+            self.manage_pos(steps)
+            print(self.current_rot) # Debugging
+            print(self.current_pos[0])
+            print(self.current_pos[1])
 
     def stop(self):
         self.set_motors(0, 0, 0, 0)
