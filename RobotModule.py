@@ -128,7 +128,7 @@ class Robot:
     def reverse(self, steps = 1): # 1 step by default
         self.stop() # Stop motors before moving them again
 
-        if (self.check_pos(self.current_pos[0], self.current_pos[1], steps)):
+        if (self.check_pos(self.current_pos[0], self.current_pos[1], steps * -1)):
             print("Requested move will go out of bounds and therefore can't be performed")
         else:
             print("Moving Robot Backward %d Steps" % steps) # Debugging statement
