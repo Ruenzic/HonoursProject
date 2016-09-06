@@ -96,6 +96,8 @@ class Robot:
         GPIO.output(self.RIGHT_2_PIN, not right_dir)
 
     def forward(self, steps = 1): # 1 step by default
+        self.stop() # Stop motors before moving them again
+        print("Moving Robot Forward ", steps, "Steps") # Debugging statement
         for num in range(0,steps):
             self.set_motors(self.left_voltage_scale, 1, self.right_voltage_scale, 1)
             time.sleep(self.step_time)
@@ -110,6 +112,8 @@ class Robot:
         self.set_motors(0, 0, 0, 0)
 
     def reverse(self, steps = 1): # 1 step by default
+        self.stop() # Stop motors before moving them again
+        print("Moving Robot Backwards ", steps, "Steps") # Debugging statement
         for num in range(0,steps):
             self.set_motors(self.left_voltage_scale, 0, self.right_voltage_scale, 0)
             time.sleep(self.step_time)
@@ -121,6 +125,8 @@ class Robot:
         print(self.current_pos[1])
 
     def left(self, steps=1): # 45 degrees by default
+        self.stop() # Stop motors before moving them again
+        print("Turning Robot Right ", steps, "Steps") # Debugging statement
         if (steps >= 8):
             steps -= 8 # Remove 360 degree turns
         for num in range(0,steps):
@@ -132,6 +138,8 @@ class Robot:
         self.manage_rot()
 
     def right(self, steps=1): # 45 degrees by default
+        self.stop() # Stop motors before moving them again
+        print("Turning Robot Right ", steps, "Steps") # Debugging statement
         if (steps >= 8):
             steps -= 8 # Remove 360 degree turns
         for num in range(0,steps):
@@ -184,7 +192,7 @@ class Robot:
             self.current_pos[1] += steps
 
     def reset(self):
-
+        print("Resetting Position of Robot")
         # Reverse if the robot has the correct opposite rotation that it needs to be in
         # [TODO] Move diagonally?
 
@@ -257,14 +265,27 @@ class Robot:
         self.current_pos[1] = 0
         self.current_rot = 0
 
-    #{TODO} Not sure if we want these 2 methods below, wont be able to tell where the robot is anymore. Could add in delay, but then may as well just use forward
     #[TODO] Allow the use of this for when students are with the robot and can reset the robot manually after.
 
-    def contF(self): # Move the robot forward continuously with no sleep or delay
+    def contForward(self): # Move the robot forward continuously with no sleep or delay
+        self.stop() # Stop motors before moving them again
+        print("Moving Robot Forward Indefinitely")
         self.set_motors(self.left_voltage_scale, 1, self.right_voltage_scale, 1)
 
-    def contR(self): # Move the robot backwards continuously with no sleep or delay
-       self.set_motors(self.left_voltage_scale, 0, self.right_voltage_scale, 0)
+    def contReverse(self): # Move the robot backwards continuously with no sleep or delay
+        self.stop() # Stop motors before moving them again
+        print("Moving Robot Backward Indefinitely")
+        self.set_motors(self.left_voltage_scale, 0, self.right_voltage_scale, 0)
+
+    def contLeft(self): # Turn the robot left continuously with no sleep or delay
+        self.stop() # Stop motors before moving them again
+        print("Turing Robot Left Continuously")
+        self.set_motors(self.left_turn_voltage, 1, self.right_turn_voltage, 0)
+
+    def contRight(self): # Turn the robot left continuously with no sleep or delay
+        self.stop() # Stop motors before moving them again
+        print("Turing Robot Right Continuously")
+        self.set_motors(self.left_turn_voltage, 0, self.right_turn_voltage, 1)
 
     def obstacleReset(self): # Reset method that takes into account obstacles on the grid
         self.reset()
