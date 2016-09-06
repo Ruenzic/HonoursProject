@@ -1,22 +1,9 @@
 -For now, ignore going straight
 
--Clean up the current code
-
--Try do turning angles
- -Set up degree steps
-
--Global variable for graph/grid position
--Global variable for current angle
--Make a method thats get robot back to start 
-
 
 
 
 -Later method for pathfinding
-
-
-- Set a limit to stop robot from hitting enclosure walls
- - Find out how big the 'grid' can be later
 
 - reset method that takes into account obstacles
 - reset manually if using obsacles? 
@@ -28,4 +15,3 @@
 
 - Test cont turns
 - Make methods to return pos and rot to user
-- change cronjob back to say 10 minutes
