@@ -101,10 +101,14 @@ class Robot:
         print("Moving Robot Forward %d Steps" % steps) # Debugging statement
 
         # When moving a step forward while at 45 degrees, so rotations 1,5,7,3. You must move root(2) steps forward for every step.
+        # Use step_time_diagonal instead of normal step_time
 
         for num in range(0,steps):
             self.set_motors(self.left_voltage_scale, 1, self.right_voltage_scale, 1)
-            time.sleep(self.step_time)
+            if (self.current_rot == 1 or self.current_rot == 5 or self.current_rot == 7 or self.current_rot == 3):
+                time.sleep(self.step_time_diagonal)
+            else:
+                time.sleep(self.step_time)
             self.stop()    # Delay between each movement
             time.sleep(self.move_delay)
         self.manage_pos(steps)
@@ -120,7 +124,10 @@ class Robot:
         print("Moving Robot Backward %d Steps" % steps) # Debugging statement
         for num in range(0,steps):
             self.set_motors(self.left_voltage_scale, 0, self.right_voltage_scale, 0)
-            time.sleep(self.step_time)
+            if (self.current_rot == 1 or self.current_rot == 5 or self.current_rot == 7 or self.current_rot == 3):
+                time.sleep(self.step_time_diagonal)
+            else:
+                time.sleep(self.step_time)
             self.stop()    # Delay between each movement
             time.sleep(self.move_delay)
         self.manage_pos(steps * -1) # Make the steps negative so that the manage_pos func will move robot in correct dir based on its rot
