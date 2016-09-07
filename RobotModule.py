@@ -3,6 +3,7 @@ __author__ = 'Josh di Bona'
 
 import RPi.GPIO as GPIO
 import time
+import Node
 
 
 class Robot:
@@ -375,9 +376,34 @@ class Robot:
             self.grid_map[y][x] = 1
 
 
-    def pathfind(self):
-        print("Do pathfinding here")
+    def pathfind(self, start_pos, goal_pos):
+        print("Running Pathfinding Algorithm")
 
+        grid_nodes = []
+
+        # Create the grid of nodes
+        for i in range (0,self.y_lim + 1):
+            temp = []
+            for j in range (0, self.x_lim + 1):
+                tempNode = Node()
+                state = self.grid_map[i][j]
+                tempNode.setObstacle(state)
+                temp.append(tempNode)
+            grid_nodes.append(temp)
+
+        start_node = self.grid_map[start_pos[1]][start_pos[0]]
+        goal_node = self.grid_map[goal_pos[1]][goal_pos[0]]
+
+        closed_set = [] # Set of nodes that have been checked
+        open_set = [start_node] # Set of nodes that need to be checked
+
+        #Calculate the G values of all nodes in grid_nodes
+        for i in range (0,self.y_lim + 1):
+            for j in range (0, self.x_lim + 1):
+                node = grid_nodes[i][j]
+                G_value = (goal_pos[0] - start_pos[0]) + (goal_pos[1] - start_pos[1])
+                node.setG(G_value)
+                print(grid_nodes[i][j].getG())
 
     def set_start(self, x, y, rotation): # Method to set the x and y start position of the robot, as well as the rotation
         self.start_pos[0] = x
