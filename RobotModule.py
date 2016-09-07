@@ -48,10 +48,19 @@ class Robot:
     current_pos = [0,0]
     current_rot = 0
 
-    x_lim = 10 # Bounds for the grid/enclosure. X[0,10]
-    y_lim = 10 # Bounds for the grid/enclosure. Y[0,10]
+    x_lim = 9 # Bounds for the grid/enclosure. X[0,10]
+    y_lim = 9 # Bounds for the grid/enclosure. Y[0,10]
 
-    grid_map = [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]
+    grid_map = [[0,0,0,0,0,0,0,0,0,0],
+                [1,0,0,0,0,0,0,0,0,0],
+                [2,0,0,0,0,0,0,0,0,0],
+                [3,0,0,0,0,0,0,0,0,0],
+                [4,0,0,0,0,0,0,0,0,0],
+                [5,0,0,0,0,0,0,0,0,0],
+                [6,0,0,0,0,0,0,0,0,0],
+                [7,0,0,0,0,0,0,0,0,0],
+                [8,0,0,0,0,0,0,0,0,0],
+                [9,0,0,0,0,0,0,0,0,0]]
 
     def __init__(self,revision=2):
 
@@ -382,6 +391,9 @@ class Robot:
         return self.start_rot
 
 
+    def print_grid(self):
+        for i in range (self.y_lim,0,-1):
+            print(self.grid_map[i])
 
 
 
