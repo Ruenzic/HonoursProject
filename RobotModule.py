@@ -401,9 +401,9 @@ class Robot:
         for i in range (0,self.y_lim + 1):
             for j in range (0, self.x_lim + 1):
                 node = grid_nodes[i][j]
-                G_value = (goal_pos[0] - j) + (goal_pos[1] - i)
+                G_value = abs(goal_pos[0] - j) + abs(goal_pos[1] - i)
                 node.setG(abs(G_value))
-                print(j,i,"    ", grid_nodes[i][j].getG())
+                print(j,i,"    ", grid_nodes[i][j].getG()) # Debugging
 
         # While open set is not empty
         # Take next element out of openset with lowest F score
