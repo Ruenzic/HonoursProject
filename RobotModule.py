@@ -401,7 +401,7 @@ class Robot:
         for i in range (0,self.y_lim + 1):
             for j in range (0, self.x_lim + 1):
                 node = grid_nodes[i][j]
-                G_value = (goal_pos[0] - j) + (goal_pos[1] - i[1])
+                G_value = (goal_pos[0] - j) + (goal_pos[1] - i)
                 node.setG(G_value)
                 print(grid_nodes[i][j].getG())
 
