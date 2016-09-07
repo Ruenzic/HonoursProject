@@ -392,7 +392,7 @@ class Robot:
 
 
     def print_grid(self):
-        for i in range (self.y_lim,0,-1):
+        for i in range (self.y_lim,-1,-1):
             print(self.grid_map[i])
 
 
