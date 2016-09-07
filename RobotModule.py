@@ -48,8 +48,10 @@ class Robot:
     current_pos = [0,0]
     current_rot = 0
 
-    x_lim = 5 # Bounds for the grid/enclosure. X[-5,5]
-    y_lim = 5 # Bounds for the grid/enclosure. Y[-5,5]
+    x_lim = 10 # Bounds for the grid/enclosure. X[0,10]
+    y_lim = 10 # Bounds for the grid/enclosure. Y[0,10]
+
+    grid_map = [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]
 
     def __init__(self,revision=2):
 
@@ -243,7 +245,7 @@ class Robot:
             x -= steps
             y += steps
 
-        if (x > 5 or x < -5 or y > 5 or y < -5):
+        if (x > self.x_lim or x < 0 or y > self.y_lim or y < 0):
             return True # The next move violates the boundaries
         else:
             return False # The next move won't violate the boundaries
@@ -355,6 +357,49 @@ class Robot:
 
     def get_rot(self): # Return rotation variable to user
         return self.current_rot
+
+    def set_obstacles(self, obstacles):
+        num = len(obstacles)
+        for i in range (0,num):
+            x = obstacles[i][0]
+            y = obstacles[i][1]
+            #grid_map[y][x]
+
+
+    def pathfind(self):
+        print("Do pathfinding here")
+
+
+    def set_start(self, x, y, rotation): # Method to set the x and y start position of the robot, as well as the rotation
+        self.start_pos[0] = x
+        self.start_pos[1] = y
+        self.start_rot = rotation
+
+    def get_start_pos(self): # Method to return the start position
+        return self.start_pos
+
+    def get_start_rot(self): # Method to return the start rotation
+        return self.start_rot
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
