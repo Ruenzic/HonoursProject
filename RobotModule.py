@@ -372,7 +372,7 @@ class Robot:
         for i in range (0,num):
             x = obstacles[i][0]
             y = obstacles[i][1]
-            #grid_map[y][x]
+            self.grid_map[y][x] = 1
 
 
     def pathfind(self):
@@ -391,7 +391,7 @@ class Robot:
         return self.start_rot
 
 
-    def print_grid(self):
+    def print_grid(self): # Print out the grid, with 0 meaning no obstacle and 1 an obstacle
         for i in range (self.y_lim,-1,-1):
             print(self.grid_map[i])
 
