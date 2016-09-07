@@ -401,7 +401,7 @@ class Robot:
         for i in range (0,self.y_lim + 1):
             for j in range (0, self.x_lim + 1):
                 node = grid_nodes[i][j]
-                G_value = (goal_pos[0] - start_pos[0]) + (goal_pos[1] - start_pos[1])
+                G_value = (goal_pos[0] - j) + (goal_pos[1] - i[1])
                 node.setG(G_value)
                 print(grid_nodes[i][j].getG())
 
@@ -420,7 +420,6 @@ class Robot:
     def print_grid(self): # Print out the grid, with 0 meaning no obstacle and 1 an obstacle
         for i in range (self.y_lim,-1,-1):
             print(self.grid_map[i])
-
 
 
 
