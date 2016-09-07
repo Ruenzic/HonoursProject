@@ -402,7 +402,7 @@ class Robot:
             for j in range (0, self.x_lim + 1):
                 node = grid_nodes[i][j]
                 G_value = (goal_pos[0] - j) + (goal_pos[1] - i)
-                node.setG(G_value)
+                node.setG(abs(G_value))
                 print(grid_nodes[i][j].getG())
 
     def set_start(self, x, y, rotation): # Method to set the x and y start position of the robot, as well as the rotation
