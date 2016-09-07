@@ -403,7 +403,18 @@ class Robot:
                 node = grid_nodes[i][j]
                 G_value = (goal_pos[0] - j) + (goal_pos[1] - i)
                 node.setG(abs(G_value))
-                print(grid_nodes[i][j].getG())
+                print(j,i,"    ", grid_nodes[i][j].getG())
+
+        # While open set is not empty
+        # Take next element out of openset with lowest F score
+        # Check if this node is the goal node
+        # Remove it from the set
+        # Add it to closed set
+        # For each of the nodes neighbours
+                # if not closed, if not in open, add to open.
+                # if current g score + distance between the 2 is greater, ignore
+
+
 
     def set_start(self, x, y, rotation): # Method to set the x and y start position of the robot, as well as the rotation
         self.start_pos[0] = x
