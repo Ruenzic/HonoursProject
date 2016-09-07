@@ -3,7 +3,7 @@ __author__ = 'Josh di Bona'
 
 import RPi.GPIO as GPIO
 import time
-import Node
+from Node import *
 
 
 class Robot:
