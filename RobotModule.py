@@ -386,7 +386,7 @@ class Robot:
             temp = []
             for j in range (0, self.x_lim + 1):
                 state = self.grid_map[i][j]
-                tempNode = Node(state)
+                tempNode = Node(state, j, i)
                 #tempNode.setObstacle(state)
                 temp.append(tempNode)
             grid_nodes.append(temp)
@@ -413,6 +413,44 @@ class Robot:
         # For each of the nodes neighbours
                 # if not closed, if not in open, add to open.
                 # if current g score + distance between the 2 is greater, ignore
+
+        # Put starting node into closed set
+        #closed_set.append(start_node)
+        start_node.closed = True
+        # Remove starT_node from open set
+        open_set.remove(start_node)
+        # Add neighbours of start_node to open set
+        # NB: Check to see that you aren't at a node on the edge, otherwise you will go out of bounds
+        if (start_pos[0] + 1 < self.x_lim):
+            grid_nodes[start_pos[1]][start_pos[0] + 1].setParent(start_node)
+            open_set.append(grid_nodes[start_pos[1]][start_pos[0] + 1]) # Right
+        if (start_pos[0] - 1 > 0):
+            grid_nodes[start_pos[1]][start_pos[0] - 1].setParent(start_node)
+            open_set.append(grid_nodes[start_pos[1]][start_pos[0] - 1]) # Left
+        if (start_pos[1] + 1 < self.y_lim):
+            grid_nodes[start_pos[1] + 1][start_pos[0]].setParent(start_node)
+            open_set.append(grid_nodes[start_pos[1] + 1][start_pos[0]]) # Above
+        if (start_pos[1] - 1 > 0):
+            grid_nodes[start_pos[1] - 1][start_pos[0]].setParent(start_node)
+            open_set.append(grid_nodes[start_pos[1] - 1][start_pos[0]]) # Below
+
+
+        if (start_pos[0] + 1 < self.x_lim and start_pos[1] + 1 < self.y_lim):
+            grid_nodes[start_pos[1] + 1][start_pos[0] + 1].setParent(start_node)
+            open_set.append(grid_nodes[start_pos[1] + 1][start_pos[0] + 1]) # Top right
+        if (start_pos[0] - 1 > 0 and start_pos[1] + 1 < self.y_lim):
+            grid_nodes[start_pos[1] + 1][start_pos[0] - 1].setParent(start_node)
+            open_set.append(grid_nodes[start_pos[1] + 1][start_pos[0] - 1]) # Top left
+        if (start_pos[0] + 1 < self.x_lim and start_pos[1] - 1 > 0):
+            grid_nodes[start_pos[1] - 1][start_pos[0] + 1].setParent(start_node)
+            open_set.append(grid_nodes[start_pos[1] - 1][start_pos[0] + 1]) # Bottom right
+        if (start_pos[0] - 1 > 0 and start_pos[1] - 1 > 0):
+            grid_nodes[start_pos[1] - 1][start_pos[0] - 1].setParent(start_node)
+            open_set.append(grid_nodes[start_pos[1] - 1][start_pos[0] - 1]) # Bottom left
+
+
+        #[TODO] NOTE: Last thing i did was make sure the nodes set the parents nodes above, and change the Node to set x and y inside
+        #while (len(open_set) > 0 ):
 
 
 

@@ -4,7 +4,10 @@ __author__ = 'Josh di Bona'
 
 class Node:
 
+    x = 0
+    y = 0
 
+    closed = False
     obstacle_bool = False
     obstacle = 0
 
@@ -47,7 +50,9 @@ class Node:
     def getObstacle(self):
         return self.obstacle_bool
 
-    def __init__(self, state):
+    def __init__(self, state, x_ord, y_ord):
         self.setObstacle(state)
+        self.x = x_ord
+        self.y = y_ord
 
 
