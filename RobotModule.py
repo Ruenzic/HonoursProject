@@ -53,15 +53,15 @@ class Robot:
     y_lim = 9 # Bounds for the grid/enclosure. Y[0,10]
 
     grid_map = [[0,0,0,0,0,0,0,0,0,0],
-                [1,0,0,0,0,0,0,0,0,0],
-                [2,0,0,0,0,0,0,0,0,0],
-                [3,0,0,0,0,0,0,0,0,0],
-                [4,0,0,0,0,0,0,0,0,0],
-                [5,0,0,0,0,0,0,0,0,0],
-                [6,0,0,0,0,0,0,0,0,0],
-                [7,0,0,0,0,0,0,0,0,0],
-                [8,0,0,0,0,0,0,0,0,0],
-                [9,0,0,0,0,0,0,0,0,0]]
+                [0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0]]
 
     def __init__(self,revision=2):
 
@@ -385,9 +385,9 @@ class Robot:
         for i in range (0,self.y_lim + 1):
             temp = []
             for j in range (0, self.x_lim + 1):
-                tempNode = Node()
                 state = self.grid_map[i][j]
-                tempNode.setObstacle(state)
+                tempNode = Node(state)
+                #tempNode.setObstacle(state)
                 temp.append(tempNode)
             grid_nodes.append(temp)
 

@@ -4,6 +4,7 @@ __author__ = 'Josh di Bona'
 
 class Node:
 
+
     obstacle_bool = False
     obstacle = 0
 
@@ -46,6 +47,7 @@ class Node:
     def getObstacle(self):
         return self.obstacle_bool
 
-
+    def __init__(self, state):
+        self.setObstacle(state)
 
 
