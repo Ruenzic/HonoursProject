@@ -391,8 +391,8 @@ class Robot:
                 temp.append(tempNode)
             grid_nodes.append(temp)
 
-        start_node = self.grid_nodes[start_pos[1]][start_pos[0]] # Changed from grid_map to grid_nodes
-        goal_node = self.grid_nodes[goal_pos[1]][goal_pos[0]]
+        start_node = grid_nodes[start_pos[1]][start_pos[0]] # Changed from grid_map to grid_nodes
+        goal_node = grid_nodes[goal_pos[1]][goal_pos[0]]
 
         closed_set = [] # Set of nodes that have been checked
         open_set = [start_node] # Set of nodes that need to be checked
@@ -475,7 +475,7 @@ class Robot:
             current.close()
             open_set.remove(current)
 
-            
+
 
 
 
