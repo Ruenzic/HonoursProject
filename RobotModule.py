@@ -432,7 +432,9 @@ class Robot:
         current = goal_node
         while (current != start_node):
             nodes_path.append(current)
-            temp = current.getParent() # As soon as i have a 0 in x or y, it fails here, goal_node becomes an int? Also when = 9, so along all the edges
+            if (current is int):
+                print(current)
+            temp = current.getParent() # end point cant have a 0 or 9 in x or y else it fails, becomes an int?
             current = temp
 
         # Print path to user
