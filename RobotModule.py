@@ -440,10 +440,14 @@ class Robot:
         for i in range (self.y_lim,-1,-1):
             line = ""
             for j in range (0, self.x_lim):
-                if (grid_nodes[i][j] in nodes_path):
-                    line += "0"
+                if (grid_nodes[i][j] == start_node):
+                    line += " S "
+                elif (grid_nodes[i][j] == goal_node):
+                    line += " E "
+                elif (grid_nodes[i][j] in nodes_path):
+                    line += " 0 "
                 else:
-                    line += " "
+                    line += " - "
             print(line)
 
 
