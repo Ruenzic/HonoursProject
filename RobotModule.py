@@ -391,8 +391,8 @@ class Robot:
                 temp.append(tempNode)
             grid_nodes.append(temp)
 
-        start_node = self.grid_map[start_pos[1]][start_pos[0]]
-        goal_node = self.grid_map[goal_pos[1]][goal_pos[0]]
+        start_node = self.grid_nodes[start_pos[1]][start_pos[0]] # Changed from grid_map to grid_nodes
+        goal_node = self.grid_nodes[goal_pos[1]][goal_pos[0]]
 
         closed_set = [] # Set of nodes that have been checked
         open_set = [start_node] # Set of nodes that need to be checked
@@ -416,41 +416,81 @@ class Robot:
 
         # Put starting node into closed set
         #closed_set.append(start_node)
-        start_node.closed = True
+        start_node.close()
         # Remove starT_node from open set
         open_set.remove(start_node)
-        # Add neighbours of start_node to open set
+        # Add neighbours of start_node to open set and point them at current node = start_node
         # NB: Check to see that you aren't at a node on the edge, otherwise you will go out of bounds
+        # Also calculate movement 'G' cost
         if (start_pos[0] + 1 < self.x_lim):
             grid_nodes[start_pos[1]][start_pos[0] + 1].setParent(start_node)
+            grid_nodes[start_pos[1]][start_pos[0] + 1].setG(10)
+            grid_nodes[start_pos[1]][start_pos[0] + 1].calcF()
             open_set.append(grid_nodes[start_pos[1]][start_pos[0] + 1]) # Right
         if (start_pos[0] - 1 > 0):
             grid_nodes[start_pos[1]][start_pos[0] - 1].setParent(start_node)
+            grid_nodes[start_pos[1]][start_pos[0] - 1].setG(10)
+            grid_nodes[start_pos[1]][start_pos[0] - 1].calcF()
             open_set.append(grid_nodes[start_pos[1]][start_pos[0] - 1]) # Left
         if (start_pos[1] + 1 < self.y_lim):
             grid_nodes[start_pos[1] + 1][start_pos[0]].setParent(start_node)
+            grid_nodes[start_pos[1] + 1][start_pos[0]].setG(10)
+            grid_nodes[start_pos[1] + 1][start_pos[0]].calcF()
             open_set.append(grid_nodes[start_pos[1] + 1][start_pos[0]]) # Above
         if (start_pos[1] - 1 > 0):
             grid_nodes[start_pos[1] - 1][start_pos[0]].setParent(start_node)
+            grid_nodes[start_pos[1] - 1][start_pos[0]].setG(10)
+            grid_nodes[start_pos[1] - 1][start_pos[0]].calcF()
             open_set.append(grid_nodes[start_pos[1] - 1][start_pos[0]]) # Below
 
 
         if (start_pos[0] + 1 < self.x_lim and start_pos[1] + 1 < self.y_lim):
             grid_nodes[start_pos[1] + 1][start_pos[0] + 1].setParent(start_node)
+            grid_nodes[start_pos[1] + 1][start_pos[0] + 1].setG(14)
+            grid_nodes[start_pos[1] + 1][start_pos[0] + 1].calcF()
             open_set.append(grid_nodes[start_pos[1] + 1][start_pos[0] + 1]) # Top right
         if (start_pos[0] - 1 > 0 and start_pos[1] + 1 < self.y_lim):
             grid_nodes[start_pos[1] + 1][start_pos[0] - 1].setParent(start_node)
+            grid_nodes[start_pos[1] + 1][start_pos[0] - 1].setG(14)
+            grid_nodes[start_pos[1] + 1][start_pos[0] - 1].calcF()
             open_set.append(grid_nodes[start_pos[1] + 1][start_pos[0] - 1]) # Top left
         if (start_pos[0] + 1 < self.x_lim and start_pos[1] - 1 > 0):
             grid_nodes[start_pos[1] - 1][start_pos[0] + 1].setParent(start_node)
+            grid_nodes[start_pos[1] - 1][start_pos[0] + 1].setG(14)
+            grid_nodes[start_pos[1] - 1][start_pos[0] + 1].calcF()
             open_set.append(grid_nodes[start_pos[1] - 1][start_pos[0] + 1]) # Bottom right
         if (start_pos[0] - 1 > 0 and start_pos[1] - 1 > 0):
             grid_nodes[start_pos[1] - 1][start_pos[0] - 1].setParent(start_node)
+            grid_nodes[start_pos[1] - 1][start_pos[0] - 1].setG(14)
+            grid_nodes[start_pos[1] - 1][start_pos[0] - 1].calcF()
             open_set.append(grid_nodes[start_pos[1] - 1][start_pos[0] - 1]) # Bottom left
 
+        #[TODO] Maybe once done, keep the above check and add to open list, but then rather do the setG and calcF and add parent with 1 for loop to make code shorter.
+        # Note: G cost = Parent G cost + movement cost (10/14)
 
-        #[TODO] NOTE: Last thing i did was make sure the nodes set the parents nodes above, and change the Node to set x and y inside
-        #while (len(open_set) > 0 ):
+
+        while (len(open_set) > 0 ):
+            # Use smallest F value node next in our list
+            current = self.find_smallest(open_set)
+            current.close()
+            open_set.remove(current)
+
+            
+
+
+
+
+
+    def find_smallest(self, open_set):
+        smallest = 0
+        for i in range (0,len(open_set)):
+            if (i == 0):
+                smallest = open_set[i]
+            else:
+                if (open_set[i].getF() < smallest.getF()):
+                    smallest = open_set[i]
+        return smallest
+
 
 
 

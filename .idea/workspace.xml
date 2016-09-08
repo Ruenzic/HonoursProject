@@ -24,8 +24,8 @@
       <file leaf-file-name="RobotModule.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/RobotModule.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.46071428">
-              <caret line="453" column="0" selection-start-line="453" selection-start-column="0" selection-end-line="453" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.54642856">
+              <caret line="477" column="12" selection-start-line="477" selection-start-column="12" selection-end-line="477" selection-end-column="12" />
               <folding>
                 <element signature="e#54#77#0" expanded="true" />
                 <element signature="e#1431#2458#0" expanded="false" />
@@ -49,7 +49,7 @@
                 <element signature="e#14210#14388#0" expanded="false" />
                 <element signature="e#14773#14796#0" expanded="false" />
                 <element signature="e#14864#14887#0" expanded="false" />
-                <element signature="e#19251#19272#0" expanded="false" />
+                <element signature="e#21021#21042#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -59,7 +59,7 @@
         <entry file="file://$PROJECT_DIR$/Node.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="34" column="32" selection-start-line="34" selection-start-column="32" selection-end-line="34" selection-end-column="32" />
+              <caret line="55" column="26" selection-start-line="55" selection-start-column="26" selection-end-line="55" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -124,7 +124,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -146,6 +145,7 @@
         </subPane>
       </pane>
       <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -307,7 +307,6 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3189189" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32972974" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -319,6 +318,7 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
@@ -366,7 +366,57 @@
             <element signature="e#14210#14388#0" expanded="false" />
             <element signature="e#14773#14796#0" expanded="false" />
             <element signature="e#14864#14887#0" expanded="false" />
-            <element signature="e#19251#19272#0" expanded="false" />
+            <element signature="e#21021#21042#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Node.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="34" column="32" selection-start-line="34" selection-start-column="32" selection-end-line="34" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/IPUpdater.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="10" column="12" selection-start-line="10" selection-start-column="12" selection-end-line="10" selection-end-column="12" />
+          <folding>
+            <element signature="e#1#30#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RobotModule.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#54#77#0" expanded="true" />
+            <element signature="e#1431#2458#0" expanded="false" />
+            <element signature="e#2536#2674#0" expanded="false" />
+            <element signature="e#2757#3092#0" expanded="false" />
+            <element signature="e#3156#4333#0" expanded="false" />
+            <element signature="e#4363#4390#0" expanded="false" />
+            <element signature="e#4454#5542#0" expanded="false" />
+            <element signature="e#5605#6254#0" expanded="false" />
+            <element signature="e#6318#6968#0" expanded="false" />
+            <element signature="e#7025#7058#0" expanded="false" />
+            <element signature="e#7115#7148#0" expanded="false" />
+            <element signature="e#7181#7195#0" expanded="false" />
+            <element signature="e#7298#7430#0" expanded="false" />
+            <element signature="e#7551#8586#0" expanded="false" />
+            <element signature="e#8701#9734#0" expanded="false" />
+            <element signature="e#9765#13053#0" expanded="false" />
+            <element signature="e#13383#13565#0" expanded="false" />
+            <element signature="e#13665#13848#0" expanded="false" />
+            <element signature="e#13940#14117#0" expanded="false" />
+            <element signature="e#14210#14388#0" expanded="false" />
+            <element signature="e#14773#14796#0" expanded="false" />
+            <element signature="e#14864#14887#0" expanded="false" />
+            <element signature="e#21021#21042#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -408,7 +458,7 @@
             <element signature="e#14210#14388#0" expanded="false" />
             <element signature="e#14773#14796#0" expanded="false" />
             <element signature="e#14864#14887#0" expanded="false" />
-            <element signature="e#19251#19272#0" expanded="false" />
+            <element signature="e#21021#21042#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -440,7 +490,7 @@
             <element signature="e#14210#14388#0" expanded="false" />
             <element signature="e#14773#14796#0" expanded="false" />
             <element signature="e#14864#14887#0" expanded="false" />
-            <element signature="e#19251#19272#0" expanded="false" />
+            <element signature="e#21021#21042#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -479,7 +529,7 @@
             <element signature="e#14210#14388#0" expanded="false" />
             <element signature="e#14773#14796#0" expanded="false" />
             <element signature="e#14864#14887#0" expanded="false" />
-            <element signature="e#19251#19272#0" expanded="false" />
+            <element signature="e#21021#21042#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -511,7 +561,7 @@
             <element signature="e#14210#14388#0" expanded="false" />
             <element signature="e#14773#14796#0" expanded="false" />
             <element signature="e#14864#14887#0" expanded="false" />
-            <element signature="e#19251#19272#0" expanded="false" />
+            <element signature="e#21021#21042#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -543,15 +593,15 @@
     <entry file="file://$PROJECT_DIR$/Node.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="34" column="32" selection-start-line="34" selection-start-column="32" selection-end-line="34" selection-end-column="32" />
+          <caret line="55" column="26" selection-start-line="55" selection-start-column="26" selection-end-line="55" selection-end-column="26" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/RobotModule.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.46071428">
-          <caret line="453" column="0" selection-start-line="453" selection-start-column="0" selection-end-line="453" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.54642856">
+          <caret line="477" column="12" selection-start-line="477" selection-start-column="12" selection-end-line="477" selection-end-column="12" />
           <folding>
             <element signature="e#54#77#0" expanded="true" />
             <element signature="e#1431#2458#0" expanded="false" />
@@ -575,7 +625,7 @@
             <element signature="e#14210#14388#0" expanded="false" />
             <element signature="e#14773#14796#0" expanded="false" />
             <element signature="e#14864#14887#0" expanded="false" />
-            <element signature="e#19251#19272#0" expanded="false" />
+            <element signature="e#21021#21042#0" expanded="false" />
           </folding>
         </state>
       </provider>

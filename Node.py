@@ -29,8 +29,10 @@ class Node:
         return self.G_value
 
     def getF(self):
-        value = self.G_value + self.H_value
-        return value
+       return self.F_value
+
+    def calcF(self):
+        self.F_value = self.G_value + self.H_value
 
     def setParent(self, parent):
         self.Parent = parent
@@ -49,6 +51,9 @@ class Node:
 
     def getObstacle(self):
         return self.obstacle_bool
+
+    def close(self):
+        self.closed = True
 
     def __init__(self, state, x_ord, y_ord):
         self.setObstacle(state)
