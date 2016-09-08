@@ -446,6 +446,8 @@ class Robot:
                     line += " E "
                 elif (grid_nodes[i][j] in nodes_path):
                     line += " 0 "
+                elif (grid_nodes[i][j].getObstacle() == True):
+                    line += " X "
                 else:
                     line += " - "
             print(line)
@@ -499,6 +501,8 @@ class Robot:
 
 
     def find_smallest(self, open_set):
+        if (len(open_set) == 1):
+            return open_set[0]
         smallest = 0
         for i in range (0,len(open_set)):
             if (i == 0):
