@@ -431,9 +431,8 @@ class Robot:
         nodes_path = []
         current = goal_node
         while (current != start_node):
-            nodes_path.append(current)
-            if (current is int):
-                print(current)
+            nodes_path.append(current) # Might be because the start node doesnt have a parent? or 1 of them, so its defaulted to 0
+            print(current)
             temp = current.getParent() # end point cant have a 0 or 9 in x or y else it fails, becomes an int?
             current = temp
 

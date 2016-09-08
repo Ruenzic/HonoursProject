@@ -17,7 +17,7 @@ class Node:
     # Movements costs will be 10 for any horizontal or vertical movement and a cost of 14 for any diagonal movement
     G_value = 0 # Movement Cost
     F_value = 0 # G + H
-    Parent = 0 # A node to reach this node
+    Parent = 5 # A node to reach this node
 
     def setH(self, value):
         self.H_value = value
