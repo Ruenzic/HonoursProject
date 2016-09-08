@@ -427,8 +427,24 @@ class Robot:
             # Add neighbours if they aren't added already
             self.add_neighbours(grid_nodes, open_set, current_node)
 
+        # Once the open list is empty, create path
+        nodes_path = []
+        current = goal_node
+        while (current != start_node):
+            nodes_path.append(current)
+            temp = current.getParent()
+            current = temp
 
-
+        # Print path to user
+        print ("Path for robot found:")
+        for i in range (self.y_lim,-1,-1):
+            line = ""
+            for j in range (0, self.x_lim):
+                if (grid_nodes[i][j] in nodes_path):
+                    line += "0"
+                else:
+                    line += " "
+            print(line)
 
 
     def add_neighbours(self, grid_nodes, open_set, current_node): # Add the current nodes neighbours to the open_set
