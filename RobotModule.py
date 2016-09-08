@@ -432,14 +432,14 @@ class Robot:
         current = goal_node
         while (current != start_node):
             nodes_path.append(current)
-            temp = current.getParent()
+            temp = current.getParent() # As soon as i have a 0 in x or y, it fails here, goal_node becomes an int? Also when = 9, so along all the edges
             current = temp
 
         # Print path to user
         print ("Path for robot found:")
         for i in range (self.y_lim,-1,-1):
             line = ""
-            for j in range (0, self.x_lim):
+            for j in range (0, self.x_lim+1):
                 if (grid_nodes[i][j] == start_node):
                     line += " S "
                 elif (grid_nodes[i][j] == goal_node):
