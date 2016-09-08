@@ -56,6 +56,9 @@ class Node:
     def close(self):
         self.closed = True
 
+    def isclosed(self):
+        return self.closed
+
     def getPosition(self):
         return self.position
 

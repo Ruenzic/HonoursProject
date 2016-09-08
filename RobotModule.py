@@ -468,13 +468,14 @@ class Robot:
 
 
     def test_node(self, node, open_set, current_node, cost):
-         if (node not in open_set):
-            open_set.append(node) # Right
-            node.setG(current_node.getG() + cost)
-            node.calcF()
-            node.setParent(current_node)
-         elif (current_node.getG() + cost < node.getG()):
-            node.setParent(current_node)
+        if (node.isclosed() == False and node.getObstacle() == False):
+            if (node not in open_set):
+                open_set.append(node) # Right
+                node.setG(current_node.getG() + cost)
+                node.calcF()
+                node.setParent(current_node)
+            elif (current_node.getG() + cost < node.getG()):
+                node.setParent(current_node)
 
 
     def find_smallest(self, open_set):
