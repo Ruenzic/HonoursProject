@@ -57,7 +57,7 @@ class Node:
         self.closed = True
 
     def getPosition(self):
-        return self.pos
+        return self.position
 
     def __init__(self, state, x_ord, y_ord):
         self.setObstacle(state)
