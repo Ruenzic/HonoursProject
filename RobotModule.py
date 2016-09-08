@@ -414,71 +414,67 @@ class Robot:
                 # if not closed, if not in open, add to open.
                 # if current g score + distance between the 2 is greater, ignore
 
-        # Put starting node into closed set
-        #closed_set.append(start_node)
-        start_node.close()
-        # Remove starT_node from open set
-        open_set.remove(start_node)
-        # Add neighbours of start_node to open set and point them at current node = start_node
-        # NB: Check to see that you aren't at a node on the edge, otherwise you will go out of bounds
-        # Also calculate movement 'G' cost
-        if (start_pos[0] + 1 < self.x_lim):
-            grid_nodes[start_pos[1]][start_pos[0] + 1].setParent(start_node)
-            grid_nodes[start_pos[1]][start_pos[0] + 1].setG(10)
-            grid_nodes[start_pos[1]][start_pos[0] + 1].calcF()
-            open_set.append(grid_nodes[start_pos[1]][start_pos[0] + 1]) # Right
-        if (start_pos[0] - 1 > 0):
-            grid_nodes[start_pos[1]][start_pos[0] - 1].setParent(start_node)
-            grid_nodes[start_pos[1]][start_pos[0] - 1].setG(10)
-            grid_nodes[start_pos[1]][start_pos[0] - 1].calcF()
-            open_set.append(grid_nodes[start_pos[1]][start_pos[0] - 1]) # Left
-        if (start_pos[1] + 1 < self.y_lim):
-            grid_nodes[start_pos[1] + 1][start_pos[0]].setParent(start_node)
-            grid_nodes[start_pos[1] + 1][start_pos[0]].setG(10)
-            grid_nodes[start_pos[1] + 1][start_pos[0]].calcF()
-            open_set.append(grid_nodes[start_pos[1] + 1][start_pos[0]]) # Above
-        if (start_pos[1] - 1 > 0):
-            grid_nodes[start_pos[1] - 1][start_pos[0]].setParent(start_node)
-            grid_nodes[start_pos[1] - 1][start_pos[0]].setG(10)
-            grid_nodes[start_pos[1] - 1][start_pos[0]].calcF()
-            open_set.append(grid_nodes[start_pos[1] - 1][start_pos[0]]) # Below
-
-
-        if (start_pos[0] + 1 < self.x_lim and start_pos[1] + 1 < self.y_lim):
-            grid_nodes[start_pos[1] + 1][start_pos[0] + 1].setParent(start_node)
-            grid_nodes[start_pos[1] + 1][start_pos[0] + 1].setG(14)
-            grid_nodes[start_pos[1] + 1][start_pos[0] + 1].calcF()
-            open_set.append(grid_nodes[start_pos[1] + 1][start_pos[0] + 1]) # Top right
-        if (start_pos[0] - 1 > 0 and start_pos[1] + 1 < self.y_lim):
-            grid_nodes[start_pos[1] + 1][start_pos[0] - 1].setParent(start_node)
-            grid_nodes[start_pos[1] + 1][start_pos[0] - 1].setG(14)
-            grid_nodes[start_pos[1] + 1][start_pos[0] - 1].calcF()
-            open_set.append(grid_nodes[start_pos[1] + 1][start_pos[0] - 1]) # Top left
-        if (start_pos[0] + 1 < self.x_lim and start_pos[1] - 1 > 0):
-            grid_nodes[start_pos[1] - 1][start_pos[0] + 1].setParent(start_node)
-            grid_nodes[start_pos[1] - 1][start_pos[0] + 1].setG(14)
-            grid_nodes[start_pos[1] - 1][start_pos[0] + 1].calcF()
-            open_set.append(grid_nodes[start_pos[1] - 1][start_pos[0] + 1]) # Bottom right
-        if (start_pos[0] - 1 > 0 and start_pos[1] - 1 > 0):
-            grid_nodes[start_pos[1] - 1][start_pos[0] - 1].setParent(start_node)
-            grid_nodes[start_pos[1] - 1][start_pos[0] - 1].setG(14)
-            grid_nodes[start_pos[1] - 1][start_pos[0] - 1].calcF()
-            open_set.append(grid_nodes[start_pos[1] - 1][start_pos[0] - 1]) # Bottom left
-
-        #[TODO] Maybe once done, keep the above check and add to open list, but then rather do the setG and calcF and add parent with 1 for loop to make code shorter.
         # Note: G cost = Parent G cost + movement cost (10/14)
 
 
         while (len(open_set) > 0 ):
             # Use smallest F value node next in our list
-            current = self.find_smallest(open_set)
-            current.close()
-            open_set.remove(current)
+            current_node = self.find_smallest(open_set)
+            # Add to closed set 'mark closed'
+            current_node.close()
+            # Remove from open set
+            open_set.remove(current_node)
+            # Add neighbours if they aren't added already
+            self.add_neighbours(grid_nodes, open_set, current_node)
 
 
 
 
 
+    def add_neighbours(self, grid_nodes, open_set, current_node): # Add the current nodes neighbours to the open_set
+        current_pos = current_node.getPosition()
+        if (current_pos[0] + 1 < self.x_lim):
+            node = grid_nodes[current_pos[1]][current_pos[0] + 1] # Right
+            self.test_node(node, open_set, current_node, 10)
+
+        if (current_pos[0] - 1 > 0):
+            node = grid_nodes[current_pos[1]][current_pos[0] - 1] # Left
+            self.test_node(node, open_set, current_node, 10)
+
+        if (current_pos[1] + 1 < self.y_lim):
+            node = grid_nodes[current_pos[1] + 1][current_pos[0]] # Above
+            self.test_node(node, open_set, current_node, 10)
+
+        if (current_pos[1] - 1 > 0):
+            node = grid_nodes[current_pos[1] - 1][current_pos[0]] # Below
+            self.test_node(node, open_set, current_node, 10)
+
+
+        if (current_pos[0] + 1 < self.x_lim and current_pos[1] + 1 < self.y_lim):
+            node = grid_nodes[current_pos[1] + 1][current_pos[0] + 1] # Top Right
+            self.test_node(node, open_set, current_node, 14)
+
+        if (current_pos[0] - 1 > 0 and current_pos[1] + 1 < self.y_lim):
+            node = grid_nodes[current_pos[1] + 1][current_pos[0] - 1] # Top Left
+            self.test_node(node, open_set, current_node, 14)
+
+        if (current_pos[0] + 1 < self.x_lim and current_pos[1] - 1 > 0):
+            node = grid_nodes[current_pos[1] - 1][current_pos[0] + 1] # Bottom Right
+            self.test_node(node, open_set, current_node, 14)
+
+        if (current_pos[0] - 1 > 0 and current_pos[1] - 1 > 0):
+            node = grid_nodes[current_pos[1] - 1][current_pos[0] - 1] # Bottom Left
+            self.test_node(node, open_set, current_node, 14)
+
+
+    def test_node(self, node, open_set, current_node, cost):
+         if (node not in open_set):
+            open_set.append(node) # Right
+            node.setG(current_node.getG() + cost)
+            node.calcF()
+            node.setParent(current_node)
+         elif (current_node.getG() + cost < node.getG()):
+            node.setParent(current_node)
 
 
     def find_smallest(self, open_set):

@@ -6,6 +6,7 @@ class Node:
 
     x = 0
     y = 0
+    position = []
 
     closed = False
     obstacle_bool = False
@@ -55,9 +56,13 @@ class Node:
     def close(self):
         self.closed = True
 
+    def getPosition(self):
+        return self.pos
+
     def __init__(self, state, x_ord, y_ord):
         self.setObstacle(state)
         self.x = x_ord
         self.y = y_ord
+        self.position = [x_ord, y_ord]
 
 
