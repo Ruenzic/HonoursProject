@@ -17,3 +17,6 @@
 - Fix reset method to take robot back to start position and rotation, not always 0,0,0
 - Code a method that will follow a path 
 - Add to reset a check that if there are obstacles, will create a path and use it rather
+
+
+- Maybe rename some methods to more intuitive names? get_pos and get_rot to full names
