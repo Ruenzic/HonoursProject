@@ -432,9 +432,9 @@ class Robot:
         current = goal_node
         while (current != start_node):
             nodes_path.append(current) # Might be because the start node doesnt have a parent? or 1 of them, so its defaulted to 0
-            print(current)
+            #print(current)    # PRINTING 5, therefore default parent value, something isn't getting assigned a parent, and its the 2nd 1.
             temp = current.getParent() # end point cant have a 0 or 9 in x or y else it fails, becomes an int?
-            current = temp
+            current = temp              # So when the goal node is on the edge it isnt being assigned a parent
 
         # Print path to user
         print ("Path for robot found:")
@@ -456,36 +456,36 @@ class Robot:
 
     def add_neighbours(self, grid_nodes, open_set, current_node): # Add the current nodes neighbours to the open_set
         current_pos = current_node.getPosition()
-        if (current_pos[0] + 1 < self.x_lim):
+        if (current_pos[0] + 1 <= self.x_lim):
             node = grid_nodes[current_pos[1]][current_pos[0] + 1] # Right
             self.test_node(node, open_set, current_node, 10)
 
-        if (current_pos[0] - 1 > 0):
+        if (current_pos[0] - 1 >= 0):
             node = grid_nodes[current_pos[1]][current_pos[0] - 1] # Left
             self.test_node(node, open_set, current_node, 10)
 
-        if (current_pos[1] + 1 < self.y_lim):
+        if (current_pos[1] + 1 <= self.y_lim):
             node = grid_nodes[current_pos[1] + 1][current_pos[0]] # Above
             self.test_node(node, open_set, current_node, 10)
 
-        if (current_pos[1] - 1 > 0):
+        if (current_pos[1] - 1 >= 0):
             node = grid_nodes[current_pos[1] - 1][current_pos[0]] # Below
             self.test_node(node, open_set, current_node, 10)
 
 
-        if (current_pos[0] + 1 < self.x_lim and current_pos[1] + 1 < self.y_lim):
+        if (current_pos[0] + 1 <= self.x_lim and current_pos[1] + 1 < self.y_lim):
             node = grid_nodes[current_pos[1] + 1][current_pos[0] + 1] # Top Right
             self.test_node(node, open_set, current_node, 14)
 
-        if (current_pos[0] - 1 > 0 and current_pos[1] + 1 < self.y_lim):
+        if (current_pos[0] - 1 >= 0 and current_pos[1] + 1 < self.y_lim):
             node = grid_nodes[current_pos[1] + 1][current_pos[0] - 1] # Top Left
             self.test_node(node, open_set, current_node, 14)
 
-        if (current_pos[0] + 1 < self.x_lim and current_pos[1] - 1 > 0):
+        if (current_pos[0] + 1 <= self.x_lim and current_pos[1] - 1 > 0):
             node = grid_nodes[current_pos[1] - 1][current_pos[0] + 1] # Bottom Right
             self.test_node(node, open_set, current_node, 14)
 
-        if (current_pos[0] - 1 > 0 and current_pos[1] - 1 > 0):
+        if (current_pos[0] - 1 >= 0 and current_pos[1] - 1 > 0):
             node = grid_nodes[current_pos[1] - 1][current_pos[0] - 1] # Bottom Left
             self.test_node(node, open_set, current_node, 14)
 
