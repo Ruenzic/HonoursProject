@@ -15,11 +15,12 @@
 - Use Jeremy's sensor to check if about to hit an obstacle, if so stop motors, in the contForward and Reverse
 
 - Fix reset method to take robot back to start position and rotation, not always 0,0,0
+- Allow user to also set a start rotation? - reset() will need to be changed too 
+
 - Code a method that will follow a path 
 - Add to reset a check that if there are obstacles, will create a path and use it rather
 
-- When a user sets a list of obstacles, rewrite the old ones, dont just add on maybe? 
-|-> Maybe make another method called reset_obstacles() and add_obstacles() instead of set_obstacles()
+
 
 
 - Maybe rename some methods to more intuitive names? get_pos and get_rot to full names

@@ -357,10 +357,14 @@ class Robot:
         print("Turing Robot Right Continuously")
         self.set_motors(self.left_turn_voltage, 0, self.right_turn_voltage, 1)
 
-    def obstacleReset(self): # Reset method that takes into account obstacles on the grid
-        self.reset()
-        # Maybe have the student enter the grid positions, separated by a space, eg '(0,4) (1,4)' where there are obstacles
-        # Robot will then move back to the start while avoiding these.
+    def follow_path(self, nodes_path): # Method that will have the robot follow a path returned by pathfinding
+        print ("Robot Following A* Path:")
+        # Loop through nodes_path backwards, as it is from goal - > start
+        # At each node, check where the parent is, if above, below, left, right or any diagonal
+        # After check what the current rotation of the robot is
+        # Change rotation, move robot
+
+
 
     def get_pos(self): # Return [x,y] position of robot to the user
         return self.current_pos
@@ -368,12 +372,17 @@ class Robot:
     def get_rot(self): # Return rotation variable to user
         return self.current_rot
 
-    def set_obstacles(self, obstacles):
+    def add_obstacles(self, obstacles):
         num = len(obstacles)
         for i in range (0,num):
             x = obstacles[i][0]
             y = obstacles[i][1]
             self.grid_map[y][x] = 1
+
+    def reset_obstacles(self):
+        for i in range (0,self.y_lim + 1):
+            for j in range (0, self.x_lim + 1):
+                self.grid_map[i][j] = 0
 
 
     def pathfind(self, start_pos, goal_pos):
@@ -434,7 +443,7 @@ class Robot:
             nodes_path.append(current)
             #print(current)
             temp = current.getParent()
-            current = temp              
+            current = temp
 
         # Print path to user
         print ("Path for robot found:")
@@ -452,6 +461,8 @@ class Robot:
                 else:
                     line += " - "
             print(line)
+
+        return nodes_path
 
 
     def add_neighbours(self, grid_nodes, open_set, current_node): # Add the current nodes neighbours to the open_set
@@ -516,7 +527,7 @@ class Robot:
 
 
 
-    def set_start(self, x, y, rotation): # Method to set the x and y start position of the robot, as well as the rotation
+    def set_start_pos(self, x, y, rotation): # Method to set the x and y start position of the robot, as well as the rotation
         self.start_pos[0] = x
         self.start_pos[1] = y
         self.start_rot = rotation

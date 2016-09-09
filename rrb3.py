@@ -22,8 +22,8 @@ class RRB3:
     OC2_PIN = 27
     OC2_PIN_R1 = 21
     OC2_PIN_R2 = 27
-    TRIGGER_PIN = 18
-    ECHO_PIN = 23
+    TRIGGER_PIN = 7
+    ECHO_PIN = 12
     left_pwm = 0
     right_pwm = 0
     pwm_scale = 0
