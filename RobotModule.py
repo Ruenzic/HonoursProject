@@ -348,7 +348,8 @@ class Robot:
 
         else:
             self.follow_path(self.pathfind(self.get_pos(),self.get_start_pos()))
-            self.change_rot(self.get_rot(),self.get_start_rot())
+            if (self.get_rot() != self.get_start_rot()):
+                self.change_rot(self.get_rot(),self.get_start_rot())
 
         self.current_pos[0] = 0
         self.current_pos[1] = 0
@@ -423,6 +424,7 @@ class Robot:
                 # Now that we know the position of the next spot, change rotation and move there
 
                 if (current_rot != rot1 and current_rot != rot2):
+                    print("changing rot, from " + str(current_rot) + " to " + str(rot1))
                     self.change_rot(current_rot, rot1)
                 if (current_rot == rot1):
                     self.forward(1)
