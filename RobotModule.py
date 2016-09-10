@@ -384,7 +384,7 @@ class Robot:
         # At each node, check where the parent is, if above, below, left, right or any diagonal
         # After check what the current rotation of the robot is
         # Change rotation, move robot
-
+        print("length of nodes path is " + str(len(nodes_path)))
         for i in range (len(nodes_path)-1, 0):
             if (i != 0):
                 current_node = nodes_path[i]
@@ -392,7 +392,7 @@ class Robot:
                 current_pos = current_node.getPosition()
                 next_pos = next_node.getPosition()
                 current_rot = self.get_rot()
-                print("node " + str(i))
+                print("node " + str(i)) # Note, follow_path doesnt even get to here
                 rot1 = 0
                 rot2 = 0
 
