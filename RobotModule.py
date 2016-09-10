@@ -384,8 +384,8 @@ class Robot:
         # At each node, check where the parent is, if above, below, left, right or any diagonal
         # After check what the current rotation of the robot is
         # Change rotation, move robot
-        print("length of nodes path is " + str(len(nodes_path)))
-        for i in range (len(nodes_path)-1, 0):
+        print("length of nodes path is " + str(len(nodes_path))) # Note, prints out 4
+        for i in range (len(nodes_path)-1, 0, -1): # Added -1 at end
             if (i != 0):
                 current_node = nodes_path[i]
                 next_node = nodes_path[i - 1]
