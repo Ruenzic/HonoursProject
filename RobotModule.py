@@ -63,6 +63,17 @@ class Robot:
                 [0,0,0,0,0,0,0,0,0,0],
                 [0,0,0,0,0,0,0,0,0,0]]
 
+    grid_map_clear = [[0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0]]
+
     def __init__(self,revision=2):
 
         self.pwm_scale = 1
@@ -267,68 +278,77 @@ class Robot:
 
         # Move the robot back to the start position
         # Move on the y axis
-        if (self.current_pos[1] > 0):
-            if (self.current_rot != 4 and self.current_rot != 0):
-                # rotate towards the start
-                if (self.current_rot >= 0 and self.current_rot < 4):
-                    self.right(4 - self.current_rot)
-                elif (self.current_rot > 4):
-                    self.left(self.current_rot - 4)
-            if (self.current_rot == 4):
-                self.forward(self.current_pos[1])
-            elif (self.current_rot == 0):
-                self.reverse(self.current_pos[1])
 
-        elif (self.current_pos[1] < 0):
-            if (self.current_rot != 0 and self.current_rot != 4):
+        # Check to see if there are obstacles present, if not, use this method, else call pathfinding and follow the path.
+
+        if (self.grid_map == self.grid_map_clear): # No obstacles
+
+            if (self.current_pos[1] > 0):
+                if (self.current_rot != 4 and self.current_rot != 0):
+                    # rotate towards the start
+                    if (self.current_rot >= 0 and self.current_rot < 4):
+                        self.right(4 - self.current_rot)
+                    elif (self.current_rot > 4):
+                        self.left(self.current_rot - 4)
+                if (self.current_rot == 4):
+                    self.forward(self.current_pos[1])
+                elif (self.current_rot == 0):
+                    self.reverse(self.current_pos[1])
+
+            elif (self.current_pos[1] < 0):
+                if (self.current_rot != 0 and self.current_rot != 4):
+                    # rotate towards the start
+                    if (self.current_rot >= 0 and self.current_rot < 4):
+                        self.left(self.current_rot)
+                    elif (self.current_rot > 4):
+                        self.right(8 - self.current_rot)
+                if (self.current_rot == 0):
+                    self.forward(self.current_pos[1] * -1) # Change negative to positive
+                elif (self.current_rot == 4):
+                    self.reverse(self.current_pos[1] * -1)
+
+            # Move on the x axis
+            if (self.current_pos[0] > 0):
+                if (self.current_rot != 6 and self.current_rot != 2):
+                    # rotate towards the start
+                    if (self.current_rot >= 2 and self.current_rot < 6):
+                        self.right(6 - self.current_rot)
+                    elif (self.current_rot < 2):
+                        self.left(2 + self.current_rot)
+                    elif (self.current_rot > 6):
+                        self.left(7 - self.current_rot)
+                if (self.current_rot == 6):
+                    self.forward(self.current_pos[0])
+                elif (self.current_rot == 2):
+                    self.reverse(self.current_pos[0])
+
+            elif (self.current_pos[0] < 0):
+                if (self.current_rot != 2 and self.current_rot != 6):
+                    # rotate towards the start
+                    if (self.current_rot >= 2 and self.current_rot < 6):
+                        self.left(self.current_rot - 2)
+                    elif (self.current_rot < 2):
+                        self.right(2 - self.current_rot)
+                    elif (self.current_rot > 6):
+                        self.right(8 - self.current_rot + 1)
+                if (self.current_rot == 2):
+                    self.forward(self.current_pos[0] * -1) # Change the negative to positive
+                elif (self.current_rot == 6):
+                    self.reverse(self.currrent_pos[0] * -1)
+
+
+            # Set the rotation of the robot back to the original direction
+            # Check to see if rotation is bigger or smaller than 4, then rotate the shorter direction
+            if (self.current_rot != 0):
                 # rotate towards the start
                 if (self.current_rot >= 0 and self.current_rot < 4):
                     self.left(self.current_rot)
-                elif (self.current_rot > 4):
+                elif (self.current_rot >= 4):
                     self.right(8 - self.current_rot)
-            if (self.current_rot == 0):
-                self.forward(self.current_pos[1] * -1) # Change negative to positive
-            elif (self.current_rot == 4):
-                self.reverse(self.current_pos[1] * -1)
 
-        # Move on the x axis
-        if (self.current_pos[0] > 0):
-            if (self.current_rot != 6 and self.current_rot != 2):
-                # rotate towards the start
-                if (self.current_rot >= 2 and self.current_rot < 6):
-                    self.right(6 - self.current_rot)
-                elif (self.current_rot < 2):
-                    self.left(2 + self.current_rot)
-                elif (self.current_rot > 6):
-                    self.left(7 - self.current_rot)
-            if (self.current_rot == 6):
-                self.forward(self.current_pos[0])
-            elif (self.current_rot == 2):
-                self.reverse(self.current_pos[0])
-
-        elif (self.current_pos[0] < 0):
-            if (self.current_rot != 2 and self.current_rot != 6):
-                # rotate towards the start
-                if (self.current_rot >= 2 and self.current_rot < 6):
-                    self.left(self.current_rot - 2)
-                elif (self.current_rot < 2):
-                    self.right(2 - self.current_rot)
-                elif (self.current_rot > 6):
-                    self.right(8 - self.current_rot + 1)
-            if (self.current_rot == 2):
-                self.forward(self.current_pos[0] * -1) # Change the negative to positive
-            elif (self.current_rot == 6):
-                self.reverse(self.currrent_pos[0] * -1)
-
-
-        # Set the rotation of the robot back to the original direction
-        # Check to see if rotation is bigger or smaller than 4, then rotate the shorter direction
-        if (self.current_rot != 0):
-            # rotate towards the start
-            if (self.current_rot >= 0 and self.current_rot < 4):
-                self.left(self.current_rot)
-            elif (self.current_rot >= 4):
-                self.right(8 - self.current_rot)
+        else:
+            self.follow_path(self.pathfind(self.get_pos(),self.get_start_pos()))
+            self.change_rot(self.get_rot(),self.get_start_rot())
 
         self.current_pos[0] = 0
         self.current_pos[1] = 0
@@ -364,7 +384,69 @@ class Robot:
         # After check what the current rotation of the robot is
         # Change rotation, move robot
 
+        for i in range (len(nodes_path)-1, 0):
+            if (i != 0):
+                current_node = nodes_path[i]
+                next_node = nodes_path[i - 1]
+                current_pos = current_node.getPosition()
+                next_pos = next_node.getPosition()
+                current_rot = self.get_rot()
 
+                rot1 = 0
+                rot2 = 0
+
+                if (next_pos[0] > current_pos[0] and next_pos[1] == current_pos[1]): # Right
+                    rot1 = 2
+                    rot2 = 6
+                elif (next_pos[0] < current_pos[0] and next_pos[1] == current_pos[1]): # Left
+                    rot1 = 6
+                    rot2 = 2
+                elif (next_pos[0] == current_pos[0] and next_pos[1] > current_pos[1]): # Above
+                    rot1 = 0
+                    rot2 = 4
+                elif (next_pos[0] == current_pos[0] and next_pos[1] < current_pos[1]): # Below
+                    rot1 = 4
+                    rot2 = 0
+                elif (next_pos[0] > current_pos[0] and next_pos[1] > current_pos[1]): # Top right
+                    rot1 = 1
+                    rot2 = 5
+                elif (next_pos[0] < current_pos[0] and next_pos[1] < current_pos[1]): # Bottom left
+                    rot1 = 5
+                    rot2 = 1
+                elif (next_pos[0] > current_pos[0] and next_pos[1] < current_pos[1]): # Bottom right
+                    rot1 = 3
+                    rot2 = 7
+                elif (next_pos[0] < current_pos[0] and next_pos[1] > current_pos[1]): # Top left
+                    rot1 = 7
+                    rot2 = 3
+
+                # Now that we know the position of the next spot, change rotation and move there
+
+                if (current_rot != rot1 and current_rot != rot2):
+                        self.change_rot(current_rot, rot1)
+                if (current_rot == rot1):
+                    self.forward()
+                elif (current_rot == rot2):
+                    self.reverse()
+
+    def change_rot(self, current_rot, goal_rot): # Method to change rotation from current to destination rotation
+        # Check to see if its quicker to rotate left or right to destination rotation
+        # Turn left or right the required steps
+
+        leftTurn = 0
+        rightTurn = 0
+
+        if (goal_rot > current_rot):
+            rightTurn = abs(goal_rot - current_rot)
+            leftTurn = abs(8 - goal_rot + current_rot)
+        elif (goal_rot < current_rot):
+            rightTurn = abs(8 - current_rot + goal_rot)
+            leftTurn = abs(current_rot - goal_rot)
+
+        if (leftTurn < rightTurn):
+            self.left(leftTurn)
+        else:
+            self.right(rightTurn)
 
     def get_pos(self): # Return [x,y] position of robot to the user
         return self.current_pos
