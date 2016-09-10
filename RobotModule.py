@@ -392,7 +392,7 @@ class Robot:
                 current_pos = current_node.getPosition()
                 next_pos = next_node.getPosition()
                 current_rot = self.get_rot()
-
+                print("node " + str(i))
                 rot1 = 0
                 rot2 = 0
 
