@@ -425,9 +425,9 @@ class Robot:
                 if (current_rot != rot1 and current_rot != rot2):
                         self.change_rot(current_rot, rot1)
                 if (current_rot == rot1):
-                    self.forward()
+                    self.forward(1)
                 elif (current_rot == rot2):
-                    self.reverse()
+                    self.reverse(1)
 
     def change_rot(self, current_rot, goal_rot): # Method to change rotation from current to destination rotation
         # Check to see if its quicker to rotate left or right to destination rotation
@@ -494,7 +494,7 @@ class Robot:
                 node = grid_nodes[i][j]
                 G_value = abs(goal_pos[0] - j) + abs(goal_pos[1] - i)
                 node.setG(abs(G_value))
-                print(j,i,"    ", grid_nodes[i][j].getG()) # Debugging
+                #print(j,i,"    ", grid_nodes[i][j].getG()) # Debugging
 
         # While open set is not empty
         # Take next element out of openset with lowest F score

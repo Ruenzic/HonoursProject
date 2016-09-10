@@ -18,8 +18,6 @@
 - Allow user to also set a start rotation? - reset() will need to be changed too 
 - change reset to use change_rot method, to make it shorter
 
-
-- Add to reset a check that if there are obstacles, will create a path and use it rather
 - Go through the intitioator method and remove stuff about pins im not using and above it in global variables
 
 
