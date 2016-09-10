@@ -423,7 +423,7 @@ class Robot:
                 # Now that we know the position of the next spot, change rotation and move there
 
                 if (current_rot != rot1 and current_rot != rot2):
-                        self.change_rot(current_rot, rot1)
+                    self.change_rot(current_rot, rot1)
                 if (current_rot == rot1):
                     self.forward(1)
                 elif (current_rot == rot2):
