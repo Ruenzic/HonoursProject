@@ -426,7 +426,8 @@ class Robot:
                 if (current_rot != rot1 and current_rot != rot2):
                     print("changing rot, from " + str(current_rot) + " to " + str(rot1))
                     self.change_rot(current_rot, rot1)
-                if (current_rot == rot1):
+                    self.forward(1)
+                elif (current_rot == rot1):
                     self.forward(1)
                 elif (current_rot == rot2):
                     self.reverse(1)
