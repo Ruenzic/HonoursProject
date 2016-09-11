@@ -39,10 +39,10 @@ class Robot:
     left_turn_voltage = 0.8
     right_turn_voltage = 0.8
 
-    step_time = 0.5
-    step_time_diagonal = 0.707
+    step_time = 1.0
+    step_time_diagonal = 1.4
 
-    turn_time = 0.25
+    turn_time = 0.335
 
     start_pos = [0,0]
     start_rot = 0
