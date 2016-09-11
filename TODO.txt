@@ -16,3 +16,4 @@
 
 
 - Maybe rename some methods to more intuitive names? get_pos and get_rot to full names
+- change led1 and led2 methods names to match the colours of the leds on the board
