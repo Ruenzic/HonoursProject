@@ -1,11 +1,6 @@
 -For now, ignore going straight
 
 
-
-- reset method that takes into account obstacles
-- reset manually if using obsacles? 
-
-
 - Git wiki
 - Examples
 - Tasks

@@ -379,57 +379,62 @@ class Robot:
         self.set_motors(self.left_turn_voltage, 0, self.right_turn_voltage, 1)
 
     def follow_path(self, nodes_path): # Method that will have the robot follow a path returned by pathfinding
-        print ("Robot Following A* Path:")
-        # Loop through nodes_path backwards, as it is from goal - > start
-        # At each node, check where the parent is, if above, below, left, right or any diagonal
-        # After check what the current rotation of the robot is
-        # Change rotation, move robot
-        print("length of nodes path is " + str(len(nodes_path))) # Note, prints out 4
-        for i in range (len(nodes_path)-1, 0, -1): # Added -1 at end
-            if (i != 0):
-                current_node = nodes_path[i]
-                next_node = nodes_path[i - 1]
-                current_pos = current_node.getPosition()
-                next_pos = next_node.getPosition()
-                current_rot = self.get_rot()
-                print("node " + str(i)) # Note, follow_path doesnt even get to here
-                rot1 = 0
-                rot2 = 0
 
-                if (next_pos[0] > current_pos[0] and next_pos[1] == current_pos[1]): # Right
-                    rot1 = 2
-                    rot2 = 6
-                elif (next_pos[0] < current_pos[0] and next_pos[1] == current_pos[1]): # Left
-                    rot1 = 6
-                    rot2 = 2
-                elif (next_pos[0] == current_pos[0] and next_pos[1] > current_pos[1]): # Above
+        if (nodes_path == "No Path"):
+            print("No Path can be found with current obstacle setup")
+        else:
+
+            print ("Robot Following A* Path:")
+            # Loop through nodes_path backwards, as it is from goal - > start
+            # At each node, check where the parent is, if above, below, left, right or any diagonal
+            # After check what the current rotation of the robot is
+            # Change rotation, move robot
+            print("length of nodes path is " + str(len(nodes_path))) # Note, prints out 4
+            for i in range (len(nodes_path)-1, 0, -1): # Added -1 at end
+                if (i != 0):
+                    current_node = nodes_path[i]
+                    next_node = nodes_path[i - 1]
+                    current_pos = current_node.getPosition()
+                    next_pos = next_node.getPosition()
+                    current_rot = self.get_rot()
+                    print("node " + str(i)) # Note, follow_path doesnt even get to here
                     rot1 = 0
-                    rot2 = 4
-                elif (next_pos[0] == current_pos[0] and next_pos[1] < current_pos[1]): # Below
-                    rot1 = 4
                     rot2 = 0
-                elif (next_pos[0] > current_pos[0] and next_pos[1] > current_pos[1]): # Top right
-                    rot1 = 1
-                    rot2 = 5
-                elif (next_pos[0] < current_pos[0] and next_pos[1] < current_pos[1]): # Bottom left
-                    rot1 = 5
-                    rot2 = 1
-                elif (next_pos[0] > current_pos[0] and next_pos[1] < current_pos[1]): # Bottom right
-                    rot1 = 3
-                    rot2 = 7
-                elif (next_pos[0] < current_pos[0] and next_pos[1] > current_pos[1]): # Top left
-                    rot1 = 7
-                    rot2 = 3
 
-                # Now that we know the position of the next spot, change rotation and move there
+                    if (next_pos[0] > current_pos[0] and next_pos[1] == current_pos[1]): # Right
+                        rot1 = 2
+                        rot2 = 6
+                    elif (next_pos[0] < current_pos[0] and next_pos[1] == current_pos[1]): # Left
+                        rot1 = 6
+                        rot2 = 2
+                    elif (next_pos[0] == current_pos[0] and next_pos[1] > current_pos[1]): # Above
+                        rot1 = 0
+                        rot2 = 4
+                    elif (next_pos[0] == current_pos[0] and next_pos[1] < current_pos[1]): # Below
+                        rot1 = 4
+                        rot2 = 0
+                    elif (next_pos[0] > current_pos[0] and next_pos[1] > current_pos[1]): # Top right
+                        rot1 = 1
+                        rot2 = 5
+                    elif (next_pos[0] < current_pos[0] and next_pos[1] < current_pos[1]): # Bottom left
+                        rot1 = 5
+                        rot2 = 1
+                    elif (next_pos[0] > current_pos[0] and next_pos[1] < current_pos[1]): # Bottom right
+                        rot1 = 3
+                        rot2 = 7
+                    elif (next_pos[0] < current_pos[0] and next_pos[1] > current_pos[1]): # Top left
+                        rot1 = 7
+                        rot2 = 3
 
-                if (current_rot != rot1 and current_rot != rot2):
-                    print("changing rot, from " + str(current_rot) + " to " + str(rot1))
-                    self.change_rot(current_rot, rot1)
-                if (self.get_rot() == rot1):
-                    self.forward(1)
-                elif (current_rot == rot2):
-                    self.reverse(1)
+                    # Now that we know the position of the next spot, change rotation and move there
+
+                    if (current_rot != rot1 and current_rot != rot2):
+                        print("changing rot, from " + str(current_rot) + " to " + str(rot1))
+                        self.change_rot(current_rot, rot1)
+                    if (self.get_rot() == rot1):
+                        self.forward(1)
+                    elif (current_rot == rot2):
+                        self.reverse(1)
 
     def change_rot(self, current_rot, goal_rot): # Method to change rotation from current to destination rotation
         # Check to see if its quicker to rotate left or right to destination rotation
@@ -551,7 +556,7 @@ class Robot:
                     line += " - "
             print(line)
 
-        print(len(nodes_path))
+        #print(len(nodes_path))
         return nodes_path
 
 
