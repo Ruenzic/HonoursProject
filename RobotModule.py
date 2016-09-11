@@ -282,8 +282,11 @@ class Robot:
         # Check to see if there are obstacles present, if not, use this method, else call pathfinding and follow the path.
 
         if (self.grid_map == self.grid_map_clear): # No obstacles
+            startx = self.get_start_pos()[0]
+            starty = self.get_start_pos()[1]
+            startrot = self.get_start_rot()
 
-            if (self.current_pos[1] > 0):
+            if (self.current_pos[1] > starty):
                 if (self.current_rot != 4 and self.current_rot != 0):
                     # rotate towards the start
                     if (self.current_rot >= 0 and self.current_rot < 4):
@@ -291,11 +294,11 @@ class Robot:
                     elif (self.current_rot > 4):
                         self.left(self.current_rot - 4)
                 if (self.current_rot == 4):
-                    self.forward(self.current_pos[1])
+                    self.forward(self.current_pos[1] - starty)
                 elif (self.current_rot == 0):
-                    self.reverse(self.current_pos[1])
+                    self.reverse(self.current_pos[1] - starty)
 
-            elif (self.current_pos[1] < 0):
+            elif (self.current_pos[1] < starty):
                 if (self.current_rot != 0 and self.current_rot != 4):
                     # rotate towards the start
                     if (self.current_rot >= 0 and self.current_rot < 4):
@@ -303,12 +306,12 @@ class Robot:
                     elif (self.current_rot > 4):
                         self.right(8 - self.current_rot)
                 if (self.current_rot == 0):
-                    self.forward(self.current_pos[1] * -1) # Change negative to positive
+                    self.forward(starty - self.current_pos[1]) # Change negative to positive
                 elif (self.current_rot == 4):
-                    self.reverse(self.current_pos[1] * -1)
+                    self.reverse(starty - self.current_pos[1])
 
             # Move on the x axis
-            if (self.current_pos[0] > 0):
+            if (self.current_pos[0] > startx):
                 if (self.current_rot != 6 and self.current_rot != 2):
                     # rotate towards the start
                     if (self.current_rot >= 2 and self.current_rot < 6):
@@ -318,11 +321,11 @@ class Robot:
                     elif (self.current_rot > 6):
                         self.left(7 - self.current_rot)
                 if (self.current_rot == 6):
-                    self.forward(self.current_pos[0])
+                    self.forward(self.current_pos[0] - startx)
                 elif (self.current_rot == 2):
-                    self.reverse(self.current_pos[0])
+                    self.reverse(self.current_pos[0] - startx)
 
-            elif (self.current_pos[0] < 0):
+            elif (self.current_pos[0] < startx):
                 if (self.current_rot != 2 and self.current_rot != 6):
                     # rotate towards the start
                     if (self.current_rot >= 2 and self.current_rot < 6):
@@ -332,28 +335,25 @@ class Robot:
                     elif (self.current_rot > 6):
                         self.right(8 - self.current_rot + 1)
                 if (self.current_rot == 2):
-                    self.forward(self.current_pos[0] * -1) # Change the negative to positive
+                    self.forward(startx - self.current_pos[0]) # Change the negative to positive
                 elif (self.current_rot == 6):
-                    self.reverse(self.currrent_pos[0] * -1)
+                    self.reverse(startx - self.currrent_pos[0])
 
 
             # Set the rotation of the robot back to the original direction
             # Check to see if rotation is bigger or smaller than 4, then rotate the shorter direction
-            if (self.current_rot != 0):
+            if (self.current_rot != startrot):
                 # rotate towards the start
-                if (self.current_rot >= 0 and self.current_rot < 4):
-                    self.left(self.current_rot)
-                elif (self.current_rot >= 4):
-                    self.right(8 - self.current_rot)
+                self.change_rot(self.current_rot, startrot)
 
         else:
             self.follow_path(self.pathfind(self.get_pos(),self.get_start_pos()))
             if (self.get_rot() != self.get_start_rot()):
                 self.change_rot(self.get_rot(),self.get_start_rot())
 
-        self.current_pos[0] = 0
-        self.current_pos[1] = 0
-        self.current_rot = 0
+        self.current_pos[0] = self.start_pos[0]
+        self.current_pos[1] = self.start_pos[1]
+        self.current_rot = self.start_rot
 
     #[TODO] Allow the use of this for when students are with the robot and can reset the robot manually after.
     #[TODO] Use Jeremy's sensor to check if about to hit an obstacle, if so stop motors, in the contForward and Reverse
