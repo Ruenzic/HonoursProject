@@ -528,7 +528,7 @@ class Robot:
             #print(current)
             temp = current.getParent()
             current = temp
-
+        nodes_path.append(start_node)
         # Print path to user
         print ("Path for robot found:")
         for i in range (self.y_lim,-1,-1):
