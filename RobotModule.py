@@ -523,11 +523,16 @@ class Robot:
         # Once the open list is empty, create path
         nodes_path = []
         current = goal_node
+
+
         while (current != start_node):
-            nodes_path.append(current)
-            #print(current)
-            temp = current.getParent()
-            current = temp
+            try:
+                nodes_path.append(current)
+                #print(current)
+                temp = current.getParent()
+                current = temp
+            except TypeError: # If goal node has no parent as it cant find a path
+                return "No Path"
         nodes_path.append(start_node)
         # Print path to user
         print ("Path for robot found:")
