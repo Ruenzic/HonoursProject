@@ -546,6 +546,7 @@ class Robot:
                     line += " - "
             print(line)
 
+        print(len(nodes_path))
         return nodes_path
 
 
