@@ -531,7 +531,7 @@ class Robot:
                 #print(current)
                 temp = current.getParent()
                 current = temp
-            except TypeError: # If goal node has no parent as it cant find a path
+            except TypeError and AttributeError: # If goal node has no parent as it cant find a path
                 return "No Path"
         nodes_path.append(start_node)
         # Print path to user
