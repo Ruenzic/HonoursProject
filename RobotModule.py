@@ -200,10 +200,10 @@ class Robot:
         print("X:",self.current_pos[0])
         print("Y:",self.current_pos[1])
 
-    def set_led1(self, state): # 0/1 for state
+    def set_led_red(self, state): # 0/1 for state
         GPIO.output(self.LED1_PIN, state)
 
-    def set_led2(self, state): # 0/1 for state
+    def set_led_green(self, state): # 0/1 for state
         GPIO.output(self.LED2_PIN, state)
 
     def cleanup(self):
