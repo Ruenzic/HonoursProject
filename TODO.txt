@@ -8,6 +8,8 @@
 - Test cont turns
 
 - Use Jeremy's sensor to check if about to hit an obstacle, if so stop motors, in the contForward and Reverse
+- Also maybe stop the robot from turing after 10 seconds (check current time, and keep track)
+ ### These methods will then be blocking methods and will sleep.
 
 - Possibly just always use pathfind for reset, might be more accurate
 
@@ -15,3 +17,5 @@
 
 
 
+- sleep timer for leds
+- check if methods are blocking
