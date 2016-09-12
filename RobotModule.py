@@ -358,22 +358,22 @@ class Robot:
     #[TODO] Allow the use of this for when students are with the robot and can reset the robot manually after.
     #[TODO] Use Jeremy's sensor to check if about to hit an obstacle, if so stop motors, in the contForward and Reverse
 
-    def contForward(self): # Move the robot forward continuously with no sleep or delay
+    def cont_forward(self): # Move the robot forward continuously with no sleep or delay
         self.stop() # Stop motors before moving them again
         print("Moving Robot Forward Indefinitely")
         self.set_motors(self.left_voltage_scale, 1, self.right_voltage_scale, 1)
 
-    def contReverse(self): # Move the robot backwards continuously with no sleep or delay
+    def cont_reverse(self): # Move the robot backwards continuously with no sleep or delay
         self.stop() # Stop motors before moving them again
         print("Moving Robot Backward Indefinitely")
         self.set_motors(self.left_voltage_scale, 0, self.right_voltage_scale, 0)
 
-    def contLeft(self): # Turn the robot left continuously with no sleep or delay
+    def cont_left(self): # Turn the robot left continuously with no sleep or delay
         self.stop() # Stop motors before moving them again
         print("Turing Robot Left Continuously")
         self.set_motors(self.left_turn_voltage, 1, self.right_turn_voltage, 0)
 
-    def contRight(self): # Turn the robot left continuously with no sleep or delay
+    def cont_right(self): # Turn the robot left continuously with no sleep or delay
         self.stop() # Stop motors before moving them again
         print("Turing Robot Right Continuously")
         self.set_motors(self.left_turn_voltage, 0, self.right_turn_voltage, 1)
@@ -622,9 +622,12 @@ class Robot:
 
 
 
-    def set_start_pos(self, x, y, rotation): # Method to set the x and y start position of the robot, as well as the rotation
+    def set_start_pos(self, x, y): # Method to set the x and y start position of the robot
         self.start_pos[0] = x
         self.start_pos[1] = y
+
+
+    def set_start_rot(self, rotation): # Method to set the start rotation of the robot
         self.start_rot = rotation
 
     def get_start_pos(self): # Method to return the start position
