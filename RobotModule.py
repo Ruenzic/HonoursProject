@@ -135,7 +135,7 @@ class Robot(Singleton):
         self.stop() # Stop motors before moving them again
 
         if (self.__check_pos(self.__current_pos[0], self.__current_pos[1], steps)):
-            print("Requested move will go out of bounds and therefore can't be performed")
+            print("Requested move will either go out of bounds or hit an obstacle and therefore can't be performed")
         else:
             print("Moving Robot Forward %d Steps" % steps) # Debugging statement
 
@@ -161,7 +161,7 @@ class Robot(Singleton):
         self.stop() # Stop motors before moving them again
 
         if (self.__check_pos(self.__current_pos[0], self.__current_pos[1], steps * -1)):
-            print("Requested move will go out of bounds and therefore can't be performed")
+            print("Requested move will either go out of bounds or hit an obstacle and therefore can't be performed")
         else:
             print("Moving Robot Backward %d Steps" % steps) # Debugging statement
             for num in range(0,steps):
@@ -275,7 +275,7 @@ class Robot(Singleton):
             x -= steps
             y += steps
 
-        if (x > self.__x_lim or x < 0 or y > self.__y_lim or y < 0):
+        if (x > self.__x_lim or x < 0 or y > self.__y_lim or y < 0 or self.grid_map[y][x] == 1):
             return True # The next move violates the boundaries
         else:
             return False # The next move won't violate the boundaries
@@ -398,7 +398,7 @@ class Robot(Singleton):
             # At each node, check where the parent is, if above, below, left, right or any diagonal
             # After check what the current rotation of the robot is
             # Change rotation, move robot
-            print("length of nodes path is " + str(len(nodes_path))) # Note, prints out 4
+            #print("length of nodes path is " + str(len(nodes_path))) # Note, prints out 4
             for i in range (len(nodes_path)-1, 0, -1): # Added -1 at end
                 if (i != 0):
                     current_node = nodes_path[i]
@@ -406,7 +406,7 @@ class Robot(Singleton):
                     current_pos = current_node.getPosition()
                     next_pos = next_node.getPosition()
                     current_rot = self.get_rot()
-                    print("node " + str(i)) # Note, follow_path doesnt even get to here
+                    #print("node " + str(i)) # Note, follow_path doesnt even get to here
                     rot1 = 0
                     rot2 = 0
 
