@@ -651,7 +651,11 @@ class Robot(Singleton):
             print(self.grid_map[i])
 
 
-
+    def __del__(self):
+        self.reset() # Reset robot to start position
+        self.set_led_green(0) # Set green led off
+        self.set_led_red(0) # Set red led off
+        self.cleanup() # Cleanup gpio pins
 
 
 
