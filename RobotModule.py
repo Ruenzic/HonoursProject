@@ -8,49 +8,49 @@ from Node import *
 
 class Robot:
 
-    RIGHT_PWM_PIN = 10
-    RIGHT_1_PIN = 10
-    RIGHT_2_PIN = 25
-    LEFT_PWM_PIN = 17
-    LEFT_1_PIN = 17
-    LEFT_2_PIN = 4
-    SW1_PIN = 11
-    SW2_PIN = 9
-    LED1_PIN = 8
-    LED2_PIN = 7
-    OC1_PIN = 22
-    OC2_PIN = 27
-    OC2_PIN_R1 = 21
-    OC2_PIN_R2 = 27
-    TRIGGER_PIN = 18
-    ECHO_PIN = 23
-    left_pwm = 0
-    right_pwm = 0
-    pwm_scale = 0
+    __RIGHT_PWM_PIN = 10
+    __RIGHT_1_PIN = 10
+    __RIGHT_2_PIN = 25
+    __LEFT_PWM_PIN = 17
+    __LEFT_1_PIN = 17
+    __LEFT_2_PIN = 4
+    __SW1_PIN = 11
+    __SW2_PIN = 9
+    __LED1_PIN = 8
+    __LED2_PIN = 7
+    __OC1_PIN = 22
+    __OC2_PIN = 27
+    __OC2_PIN_R1 = 21
+    __OC2_PIN_R2 = 27
+    __TRIGGER_PIN = 18
+    __ECHO_PIN = 23
+    __left_pwm = 0
+    __right_pwm = 0
+    __pwm_scale = 0
 
-    old_left_dir = -1
-    old_right_dir = -1
+    __old_left_dir = -1
+    __old_right_dir = -1
 
-    move_delay = 0.4 #See what happens when you change delay
-    voltage = 5
-    left_voltage_scale = 0.8
-    right_voltage_scale = 0.8
+    __move_delay = 0.4 #See what happens when you change delay
+    __voltage = 5
+    __left_voltage_scale = 0.8
+    __right_voltage_scale = 0.8
 
-    left_turn_voltage = 0.8
-    right_turn_voltage = 0.8
+    __left_turn_voltage = 0.8
+    __right_turn_voltage = 0.8
 
-    step_time = 1.0
-    step_time_diagonal = 1.4
+    __step_time = 1.0
+    __step_time_diagonal = 1.4
 
-    turn_time = 0.335
+    __turn_time = 0.335
 
     start_pos = [0,0]
     start_rot = 0
-    current_pos = [0,0]
-    current_rot = 0
+    __current_pos = [0,0]
+    __current_rot = 0
 
-    x_lim = 9 # Bounds for the grid/enclosure. X[0,10]
-    y_lim = 9 # Bounds for the grid/enclosure. Y[0,10]
+    __x_lim = 9 # Bounds for the grid/enclosure. X[0,10]
+    __y_lim = 9 # Bounds for the grid/enclosure. Y[0,10]
 
     grid_map = [[0,0,0,0,0,0,0,0,0,0],
                 [0,0,0,0,0,0,0,0,0,0],
@@ -76,56 +76,56 @@ class Robot:
 
     def __init__(self,revision=2):
 
-        self.pwm_scale = 1
+        self.__pwm_scale = 1
 
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
 
-        GPIO.setup(self.LEFT_PWM_PIN, GPIO.OUT)
-        self.left_pwm = GPIO.PWM(self.LEFT_PWM_PIN, 500)
-        self.left_pwm.start(0)
-        GPIO.setup(self.LEFT_1_PIN, GPIO.OUT)
-        GPIO.setup(self.LEFT_2_PIN, GPIO.OUT)
+        GPIO.setup(self.__LEFT_PWM_PIN, GPIO.OUT)
+        self.__left_pwm = GPIO.PWM(self.__LEFT_PWM_PIN, 500)
+        self.__left_pwm.start(0)
+        GPIO.setup(self.__LEFT_1_PIN, GPIO.OUT)
+        GPIO.setup(self.__LEFT_2_PIN, GPIO.OUT)
 
-        GPIO.setup(self.RIGHT_PWM_PIN, GPIO.OUT)
-        self.right_pwm = GPIO.PWM(self.RIGHT_PWM_PIN, 500)
-        self.right_pwm.start(0)
-        GPIO.setup(self.RIGHT_1_PIN, GPIO.OUT)
-        GPIO.setup(self.RIGHT_2_PIN, GPIO.OUT)
+        GPIO.setup(self.__RIGHT_PWM_PIN, GPIO.OUT)
+        self.__right_pwm = GPIO.PWM(self.__RIGHT_PWM_PIN, 500)
+        self.__right_pwm.start(0)
+        GPIO.setup(self.__RIGHT_1_PIN, GPIO.OUT)
+        GPIO.setup(self.__RIGHT_2_PIN, GPIO.OUT)
 
-        GPIO.setup(self.LED1_PIN, GPIO.OUT)
-        GPIO.setup(self.LED2_PIN, GPIO.OUT)
+        GPIO.setup(self.__LED1_PIN, GPIO.OUT)
+        GPIO.setup(self.__LED2_PIN, GPIO.OUT)
 
-        GPIO.setup(self.OC1_PIN, GPIO.OUT)
+        GPIO.setup(self.__OC1_PIN, GPIO.OUT)
         if revision == 1:
-            self.OC2_PIN = self.OC2_PIN_R1
+            self.__OC2_PIN = self.__OC2_PIN_R1
         else:
-            self.OC2_PIN = self.OC2_PIN_R2
+            self.__OC2_PIN = self.__OC2_PIN_R2
 
-        GPIO.setup(self.OC2_PIN_R2, GPIO.OUT)
+        GPIO.setup(self.__OC2_PIN_R2, GPIO.OUT)
 
-        GPIO.setup(self.SW1_PIN, GPIO.IN)
-        GPIO.setup(self.SW2_PIN, GPIO.IN)
-        GPIO.setup(self.TRIGGER_PIN, GPIO.OUT)
-        GPIO.setup(self.ECHO_PIN, GPIO.IN)
+        GPIO.setup(self.__SW1_PIN, GPIO.IN)
+        GPIO.setup(self.__SW2_PIN, GPIO.IN)
+        GPIO.setup(self.__TRIGGER_PIN, GPIO.OUT)
+        GPIO.setup(self.__ECHO_PIN, GPIO.IN)
 
-    def set_motors(self, left_pwm, left_dir, right_pwm, right_dir):
-        self.set_driver_pins(left_pwm, left_dir, right_pwm, right_dir)
-        self.old_left_dir = left_dir
-        self.old_right_dir = right_dir
+    def __set_motors(self, __left_pwm, left_dir, __right_pwm, right_dir):
+        self.__set_driver_pins(__left_pwm, left_dir, __right_pwm, right_dir)
+        self.__old_left_dir = left_dir
+        self.__old_right_dir = right_dir
 
-    def set_driver_pins(self, left_pwm, left_dir, right_pwm, right_dir):
-        self.left_pwm.ChangeDutyCycle(left_pwm * 100 * self.pwm_scale)
-        GPIO.output(self.LEFT_1_PIN, left_dir)
-        GPIO.output(self.LEFT_2_PIN, not left_dir)
-        self.right_pwm.ChangeDutyCycle(right_pwm * 100 * self.pwm_scale)
-        GPIO.output(self.RIGHT_1_PIN, right_dir)
-        GPIO.output(self.RIGHT_2_PIN, not right_dir)
+    def __set_driver_pins(self, __left_pwm, left_dir, __right_pwm, right_dir):
+        self.__left_pwm.ChangeDutyCycle(__left_pwm * 100 * self.__pwm_scale)
+        GPIO.output(self.__LEFT_1_PIN, left_dir)
+        GPIO.output(self.__LEFT_2_PIN, not left_dir)
+        self.__right_pwm.ChangeDutyCycle(__right_pwm * 100 * self.__pwm_scale)
+        GPIO.output(self.__RIGHT_1_PIN, right_dir)
+        GPIO.output(self.__RIGHT_2_PIN, not right_dir)
 
     def forward(self, steps = 1): # 1 step by default
         self.stop() # Stop motors before moving them again
 
-        if (self.check_pos(self.current_pos[0], self.current_pos[1], steps)):
+        if (self.__check_pos(self.__current_pos[0], self.__current_pos[1], steps)):
             print("Requested move will go out of bounds and therefore can't be performed")
         else:
             print("Moving Robot Forward %d Steps" % steps) # Debugging statement
@@ -133,40 +133,40 @@ class Robot:
             # When moving a step forward while at 45 degrees, so rotations 1,5,7,3. You must move root(2) steps forward for every step.
             # Use step_time_diagonal instead of normal step_time
             for num in range(0,steps):
-                self.set_motors(self.left_voltage_scale, 1, self.right_voltage_scale, 1)
-                if (self.current_rot == 1 or self.current_rot == 5 or self.current_rot == 7 or self.current_rot == 3):
-                    time.sleep(self.step_time_diagonal)
+                self.__set_motors(self.__left_voltage_scale, 1, self.__right_voltage_scale, 1)
+                if (self.__current_rot == 1 or self.__current_rot == 5 or self.__current_rot == 7 or self.__current_rot == 3):
+                    time.sleep(self.__step_time_diagonal)
                 else:
-                    time.sleep(self.step_time)
+                    time.sleep(self.__step_time)
                 self.stop()    # Delay between each movement
-                time.sleep(self.move_delay)
-            self.manage_pos(steps)
-            print("Rotation:",self.current_rot) # Debugging
-            print("X:",self.current_pos[0])
-            print("Y:",self.current_pos[1])
+                time.sleep(self.__move_delay)
+            self.__manage_pos(steps)
+            print("Rotation:",self.__current_rot) # Debugging
+            print("X:",self.__current_pos[0])
+            print("Y:",self.__current_pos[1])
 
     def stop(self):
-        self.set_motors(0, 0, 0, 0)
+        self.__set_motors(0, 0, 0, 0)
 
     def reverse(self, steps = 1): # 1 step by default
         self.stop() # Stop motors before moving them again
 
-        if (self.check_pos(self.current_pos[0], self.current_pos[1], steps * -1)):
+        if (self.__check_pos(self.__current_pos[0], self.__current_pos[1], steps * -1)):
             print("Requested move will go out of bounds and therefore can't be performed")
         else:
             print("Moving Robot Backward %d Steps" % steps) # Debugging statement
             for num in range(0,steps):
-                self.set_motors(self.left_voltage_scale, 0, self.right_voltage_scale, 0)
-                if (self.current_rot == 1 or self.current_rot == 5 or self.current_rot == 7 or self.current_rot == 3):
-                    time.sleep(self.step_time_diagonal)
+                self.__set_motors(self.__left_voltage_scale, 0, self.__right_voltage_scale, 0)
+                if (self.__current_rot == 1 or self.__current_rot == 5 or self.__current_rot == 7 or self.__current_rot == 3):
+                    time.sleep(self.__step_time_diagonal)
                 else:
-                    time.sleep(self.step_time)
+                    time.sleep(self.__step_time)
                 self.stop()    # Delay between each movement
-                time.sleep(self.move_delay)
-            self.manage_pos(steps * -1) # Make the steps negative so that the manage_pos func will move robot in correct dir based on its rot
-            print("Rotation:",self.current_rot) # Debugging
-            print("X:",self.current_pos[0])
-            print("Y:",self.current_pos[1])
+                time.sleep(self.__move_delay)
+            self.__manage_pos(steps * -1) # Make the steps negative so that the manage_pos func will move robot in correct dir based on its rot
+            print("Rotation:",self.__current_rot) # Debugging
+            print("X:",self.__current_pos[0])
+            print("Y:",self.__current_pos[1])
 
     def left(self, steps=1): # 45 degrees by default
         self.stop() # Stop motors before moving them again
@@ -174,15 +174,15 @@ class Robot:
         if (steps >= 8):
             steps -= 8 # Remove 360 degree turns
         for num in range(0,steps):
-            self.set_motors(self.left_turn_voltage, 1, self.right_turn_voltage, 0)
-            time.sleep(self.turn_time)
+            self.__set_motors(self.__left_turn_voltage, 0, self.__right_turn_voltage, 1)
+            time.sleep(self.__turn_time)
             self.stop()    # Delay between each movement
-            time.sleep(self.move_delay)
-        self.current_rot -= steps
-        self.manage_rot()
-        print("Rotation:",self.current_rot) # Debugging
-        print("X:",self.current_pos[0])
-        print("Y:",self.current_pos[1])
+            time.sleep(self.__move_delay)
+        self.__current_rot -= steps
+        self.__manage_rot()
+        print("Rotation:",self.__current_rot) # Debugging
+        print("X:",self.__current_pos[0])
+        print("Y:",self.__current_pos[1])
 
     def right(self, steps=1): # 45 degrees by default
         self.stop() # Stop motors before moving them again
@@ -190,83 +190,83 @@ class Robot:
         if (steps >= 8):
             steps -= 8 # Remove 360 degree turns
         for num in range(0,steps):
-            self.set_motors(self.left_turn_voltage, 0, self.right_turn_voltage, 1)
-            time.sleep(self.turn_time)
+            self.__set_motors(self.__left_turn_voltage, 1, self.__right_turn_voltage, 0)
+            time.sleep(self.__turn_time)
             self.stop()    # Delay between each movement
-            time.sleep(self.move_delay)
-        self.current_rot += steps
-        self.manage_rot()
-        print("Rotation:",self.current_rot) # Debugging
-        print("X:",self.current_pos[0])
-        print("Y:",self.current_pos[1])
+            time.sleep(self.__move_delay)
+        self.__current_rot += steps
+        self.__manage_rot()
+        print("Rotation:",self.__current_rot) # Debugging
+        print("X:",self.__current_pos[0])
+        print("Y:",self.__current_pos[1])
 
     def set_led_red(self, state): # 0/1 for state
-        GPIO.output(self.LED1_PIN, state)
+        GPIO.output(self.__LED1_PIN, state)
 
     def set_led_green(self, state): # 0/1 for state
-        GPIO.output(self.LED2_PIN, state)
+        GPIO.output(self.__LED2_PIN, state)
 
     def cleanup(self):
         GPIO.cleanup()
 
-    def manage_rot(self): # Manage the current rotation by removing 360 degrees when needed.
-        if (self.current_rot >= 8):
-            self.current_rot -= 8
-        elif (self.current_rot < 0):
-            self.current_rot += 8
+    def __manage_rot(self): # Manage the current rotation by removing 360 degrees when needed.
+        if (self.__current_rot >= 8):
+            self.__current_rot -= 8
+        elif (self.__current_rot < 0):
+            self.__current_rot += 8
 
 
-    def manage_pos(self, steps): # Method to manage the position of the robot in the grid world (keep track)
+    def __manage_pos(self, steps): # Method to manage the position of the robot in the grid world (keep track)
 
-        self.manage_rot() # Make sure rotation is in positive form for ease
+        self.__manage_rot() # Make sure rotation is in positive form for ease
 
-        if (self.current_rot == 0): # Increase the y value by the number of steps
-            self.current_pos[1] += steps
-        elif (self.current_rot == 1): # Increase x and y
-            self.current_pos[0] += steps
-            self.current_pos[1] += steps
-        elif (self.current_rot == 2): # Increase x
-            self.current_pos[0] += steps
-        elif (self.current_rot == 3): # Increase x, Decrease y
-            self.current_pos[0] += steps
-            self.current_pos[1] -= steps
-        elif (self.current_rot == 4): # Decrease y
-            self.current_pos[1] -= steps
-        elif (self.current_rot == 5): # Decrease x and y
-            self.current_pos[0] -= steps
-            self.current_pos[1] -= steps
-        elif (self.current_rot == 6): # Decrease x
-            self.current_pos[0] -= steps
-        elif (self.current_rot == 7): # Decrease x, Increase y
-            self.current_pos[0] -= steps
-            self.current_pos[1] += steps
+        if (self.__current_rot == 0): # Increase the y value by the number of steps
+            self.__current_pos[1] += steps
+        elif (self.__current_rot == 1): # Increase x and y
+            self.__current_pos[0] += steps
+            self.__current_pos[1] += steps
+        elif (self.__current_rot == 2): # Increase x
+            self.__current_pos[0] += steps
+        elif (self.__current_rot == 3): # Increase x, Decrease y
+            self.__current_pos[0] += steps
+            self.__current_pos[1] -= steps
+        elif (self.__current_rot == 4): # Decrease y
+            self.__current_pos[1] -= steps
+        elif (self.__current_rot == 5): # Decrease x and y
+            self.__current_pos[0] -= steps
+            self.__current_pos[1] -= steps
+        elif (self.__current_rot == 6): # Decrease x
+            self.__current_pos[0] -= steps
+        elif (self.__current_rot == 7): # Decrease x, Increase y
+            self.__current_pos[0] -= steps
+            self.__current_pos[1] += steps
 
-    def check_pos(self, x, y, steps): # Method to check if moving the robot will move it out of bounds.
+    def __check_pos(self, x, y, steps): # Method to check if moving the robot will move it out of bounds.
 
-        self.manage_rot() # Make sure rotation is in positive form for ease
+        self.__manage_rot() # Make sure rotation is in positive form for ease
 
-        if (self.current_rot == 0): # Increase the y value by the number of steps
+        if (self.__current_rot == 0): # Increase the y value by the number of steps
             y += steps
-        elif (self.current_rot == 1): # Increase x and y
+        elif (self.__current_rot == 1): # Increase x and y
             x += steps
             y += steps
-        elif (self.current_rot == 2): # Increase x
+        elif (self.__current_rot == 2): # Increase x
             x += steps
-        elif (self.current_rot == 3): # Increase x, Decrease y
+        elif (self.__current_rot == 3): # Increase x, Decrease y
             x += steps
             y -= steps
-        elif (self.current_rot == 4): # Decrease y
+        elif (self.__current_rot == 4): # Decrease y
             y -= steps
-        elif (self.current_rot == 5): # Decrease x and y
+        elif (self.__current_rot == 5): # Decrease x and y
             x -= steps
             y -= steps
-        elif (self.current_rot == 6): # Decrease x
+        elif (self.__current_rot == 6): # Decrease x
             x -= steps
-        elif (self.current_rot == 7): # Decrease x, Increase y
+        elif (self.__current_rot == 7): # Decrease x, Increase y
             x -= steps
             y += steps
 
-        if (x > self.x_lim or x < 0 or y > self.y_lim or y < 0):
+        if (x > self.__x_lim or x < 0 or y > self.__y_lim or y < 0):
             return True # The next move violates the boundaries
         else:
             return False # The next move won't violate the boundaries
@@ -286,74 +286,74 @@ class Robot:
             starty = self.get_start_pos()[1]
             startrot = self.get_start_rot()
 
-            if (self.current_pos[1] > starty):
-                if (self.current_rot != 4 and self.current_rot != 0):
+            if (self.__current_pos[1] > starty):
+                if (self.__current_rot != 4 and self.__current_rot != 0):
                     # rotate towards the start
-                    if (self.current_rot >= 0 and self.current_rot < 4):
-                        self.right(4 - self.current_rot)
-                    elif (self.current_rot > 4):
-                        self.left(self.current_rot - 4)
-                if (self.current_rot == 4):
-                    self.forward(self.current_pos[1] - starty)
-                elif (self.current_rot == 0):
-                    self.reverse(self.current_pos[1] - starty)
+                    if (self.__current_rot >= 0 and self.__current_rot < 4):
+                        self.right(4 - self.__current_rot)
+                    elif (self.__current_rot > 4):
+                        self.left(self.__current_rot - 4)
+                if (self.__current_rot == 4):
+                    self.forward(self.__current_pos[1] - starty)
+                elif (self.__current_rot == 0):
+                    self.reverse(self.__current_pos[1] - starty)
 
-            elif (self.current_pos[1] < starty):
-                if (self.current_rot != 0 and self.current_rot != 4):
+            elif (self.__current_pos[1] < starty):
+                if (self.__current_rot != 0 and self.__current_rot != 4):
                     # rotate towards the start
-                    if (self.current_rot >= 0 and self.current_rot < 4):
-                        self.left(self.current_rot)
-                    elif (self.current_rot > 4):
-                        self.right(8 - self.current_rot)
-                if (self.current_rot == 0):
-                    self.forward(starty - self.current_pos[1]) # Change negative to positive
-                elif (self.current_rot == 4):
-                    self.reverse(starty - self.current_pos[1])
+                    if (self.__current_rot >= 0 and self.__current_rot < 4):
+                        self.left(self.__current_rot)
+                    elif (self.__current_rot > 4):
+                        self.right(8 - self.__current_rot)
+                if (self.__current_rot == 0):
+                    self.forward(starty - self.__current_pos[1]) # Change negative to positive
+                elif (self.__current_rot == 4):
+                    self.reverse(starty - self.__current_pos[1])
 
             # Move on the x axis
-            if (self.current_pos[0] > startx):
-                if (self.current_rot != 6 and self.current_rot != 2):
+            if (self.__current_pos[0] > startx):
+                if (self.__current_rot != 6 and self.__current_rot != 2):
                     # rotate towards the start
-                    if (self.current_rot >= 2 and self.current_rot < 6):
-                        self.right(6 - self.current_rot)
-                    elif (self.current_rot < 2):
-                        self.left(2 + self.current_rot)
-                    elif (self.current_rot > 6):
-                        self.left(7 - self.current_rot)
-                if (self.current_rot == 6):
-                    self.forward(self.current_pos[0] - startx)
-                elif (self.current_rot == 2):
-                    self.reverse(self.current_pos[0] - startx)
+                    if (self.__current_rot >= 2 and self.__current_rot < 6):
+                        self.right(6 - self.__current_rot)
+                    elif (self.__current_rot < 2):
+                        self.left(2 + self.__current_rot)
+                    elif (self.__current_rot > 6):
+                        self.left(7 - self.__current_rot)
+                if (self.__current_rot == 6):
+                    self.forward(self.__current_pos[0] - startx)
+                elif (self.__current_rot == 2):
+                    self.reverse(self.__current_pos[0] - startx)
 
-            elif (self.current_pos[0] < startx):
-                if (self.current_rot != 2 and self.current_rot != 6):
+            elif (self.__current_pos[0] < startx):
+                if (self.__current_rot != 2 and self.__current_rot != 6):
                     # rotate towards the start
-                    if (self.current_rot >= 2 and self.current_rot < 6):
-                        self.left(self.current_rot - 2)
-                    elif (self.current_rot < 2):
-                        self.right(2 - self.current_rot)
-                    elif (self.current_rot > 6):
-                        self.right(8 - self.current_rot + 1)
-                if (self.current_rot == 2):
-                    self.forward(startx - self.current_pos[0]) # Change the negative to positive
-                elif (self.current_rot == 6):
+                    if (self.__current_rot >= 2 and self.__current_rot < 6):
+                        self.left(self.__current_rot - 2)
+                    elif (self.__current_rot < 2):
+                        self.right(2 - self.__current_rot)
+                    elif (self.__current_rot > 6):
+                        self.right(8 - self.__current_rot + 1)
+                if (self.__current_rot == 2):
+                    self.forward(startx - self.__current_pos[0]) # Change the negative to positive
+                elif (self.__current_rot == 6):
                     self.reverse(startx - self.currrent_pos[0])
 
 
             # Set the rotation of the robot back to the original direction
             # Check to see if rotation is bigger or smaller than 4, then rotate the shorter direction
-            if (self.current_rot != startrot):
+            if (self.__current_rot != startrot):
                 # rotate towards the start
-                self.change_rot(self.current_rot, startrot)
+                self.change_rot(self.__current_rot, startrot)
 
         else:
             self.follow_path(self.pathfind(self.get_pos(),self.get_start_pos()))
             if (self.get_rot() != self.get_start_rot()):
                 self.change_rot(self.get_rot(),self.get_start_rot())
 
-        self.current_pos[0] = self.start_pos[0]
-        self.current_pos[1] = self.start_pos[1]
-        self.current_rot = self.start_rot
+        self.__current_pos[0] = self.start_pos[0]
+        self.__current_pos[1] = self.start_pos[1]
+        self.__current_rot = self.start_rot
 
     #[TODO] Allow the use of this for when students are with the robot and can reset the robot manually after.
     #[TODO] Use Jeremy's sensor to check if about to hit an obstacle, if so stop motors, in the contForward and Reverse
@@ -361,22 +361,22 @@ class Robot:
     def cont_forward(self): # Move the robot forward continuously with no sleep or delay
         self.stop() # Stop motors before moving them again
         print("Moving Robot Forward Indefinitely")
-        self.set_motors(self.left_voltage_scale, 1, self.right_voltage_scale, 1)
+        self.__set_motors(self.__left_voltage_scale, 1, self.__right_voltage_scale, 1)
 
     def cont_reverse(self): # Move the robot backwards continuously with no sleep or delay
         self.stop() # Stop motors before moving them again
         print("Moving Robot Backward Indefinitely")
-        self.set_motors(self.left_voltage_scale, 0, self.right_voltage_scale, 0)
+        self.__set_motors(self.__left_voltage_scale, 0, self.__right_voltage_scale, 0)
 
     def cont_left(self): # Turn the robot left continuously with no sleep or delay
         self.stop() # Stop motors before moving them again
         print("Turing Robot Left Continuously")
-        self.set_motors(self.left_turn_voltage, 1, self.right_turn_voltage, 0)
+        self.__set_motors(self.__left_turn_voltage, 0, self.__right_turn_voltage, 1)
 
     def cont_right(self): # Turn the robot left continuously with no sleep or delay
         self.stop() # Stop motors before moving them again
         print("Turing Robot Right Continuously")
-        self.set_motors(self.left_turn_voltage, 0, self.right_turn_voltage, 1)
+        self.__set_motors(self.__left_turn_voltage, 1, self.__right_turn_voltage, 0)
 
     def follow_path(self, nodes_path): # Method that will have the robot follow a path returned by pathfinding
 
@@ -456,10 +456,10 @@ class Robot:
             self.right(rightTurn)
 
     def get_pos(self): # Return [x,y] position of robot to the user
-        return self.current_pos
+        return self.__current_pos
 
     def get_rot(self): # Return rotation variable to user
-        return self.current_rot
+        return self.__current_rot
 
     def add_obstacles(self, obstacles):
         num = len(obstacles)
@@ -469,8 +469,8 @@ class Robot:
             self.grid_map[y][x] = 1
 
     def reset_obstacles(self):
-        for i in range (0,self.y_lim + 1):
-            for j in range (0, self.x_lim + 1):
+        for i in range (0,self.__y_lim + 1):
+            for j in range (0, self.__x_lim + 1):
                 self.grid_map[i][j] = 0
 
 
@@ -480,9 +480,9 @@ class Robot:
         grid_nodes = []
 
         # Create the grid of nodes
-        for i in range (0,self.y_lim + 1):
+        for i in range (0,self.__y_lim + 1):
             temp = []
-            for j in range (0, self.x_lim + 1):
+            for j in range (0, self.__x_lim + 1):
                 state = self.grid_map[i][j]
                 tempNode = Node(state, j, i)
                 #tempNode.setObstacle(state)
@@ -496,8 +496,8 @@ class Robot:
         open_set = [start_node] # Set of nodes that need to be checked
 
         #Calculate the G values of all nodes in grid_nodes
-        for i in range (0,self.y_lim + 1):
-            for j in range (0, self.x_lim + 1):
+        for i in range (0,self.__y_lim + 1):
+            for j in range (0, self.__x_lim + 1):
                 node = grid_nodes[i][j]
                 G_value = abs(goal_pos[0] - j) + abs(goal_pos[1] - i)
                 node.setG(abs(G_value))
@@ -517,13 +517,13 @@ class Robot:
 
         while (len(open_set) > 0 ):
             # Use smallest F value node next in our list
-            current_node = self.find_smallest(open_set)
+            current_node = self.__find_smallest(open_set)
             # Add to closed set 'mark closed'
             current_node.close()
             # Remove from open set
             open_set.remove(current_node)
             # Add neighbours if they aren't added already
-            self.add_neighbours(grid_nodes, open_set, current_node)
+            self.__add_neighbours(grid_nodes, open_set, current_node)
 
         # Once the open list is empty, create path
         nodes_path = []
@@ -541,9 +541,9 @@ class Robot:
         nodes_path.append(start_node)
         # Print path to user
         print ("Path for robot found:")
-        for i in range (self.y_lim,-1,-1):
+        for i in range (self.__y_lim,-1,-1):
             line = ""
-            for j in range (0, self.x_lim+1):
+            for j in range (0, self.__x_lim+1):
                 if (grid_nodes[i][j] == start_node):
                     line += " S "
                 elif (grid_nodes[i][j] == goal_node):
@@ -560,43 +560,43 @@ class Robot:
         return nodes_path
 
 
-    def add_neighbours(self, grid_nodes, open_set, current_node): # Add the current nodes neighbours to the open_set
+    def __add_neighbours(self, grid_nodes, open_set, current_node): # Add the current nodes neighbours to the open_set
         current_pos = current_node.getPosition()
-        if (current_pos[0] + 1 <= self.x_lim):
+        if (current_pos[0] + 1 <= self.__x_lim):
             node = grid_nodes[current_pos[1]][current_pos[0] + 1] # Right
-            self.test_node(node, open_set, current_node, 10)
+            self.__test_node(node, open_set, current_node, 10)
 
         if (current_pos[0] - 1 >= 0):
             node = grid_nodes[current_pos[1]][current_pos[0] - 1] # Left
-            self.test_node(node, open_set, current_node, 10)
+            self.__test_node(node, open_set, current_node, 10)
 
-        if (current_pos[1] + 1 <= self.y_lim):
+        if (current_pos[1] + 1 <= self.__y_lim):
             node = grid_nodes[current_pos[1] + 1][current_pos[0]] # Above
-            self.test_node(node, open_set, current_node, 10)
+            self.__test_node(node, open_set, current_node, 10)
 
         if (current_pos[1] - 1 >= 0):
             node = grid_nodes[current_pos[1] - 1][current_pos[0]] # Below
-            self.test_node(node, open_set, current_node, 10)
+            self.__test_node(node, open_set, current_node, 10)
 
 
-        if (current_pos[0] + 1 <= self.x_lim and current_pos[1] + 1 < self.y_lim):
+        if (current_pos[0] + 1 <= self.__x_lim and current_pos[1] + 1 < self.__y_lim):
             node = grid_nodes[current_pos[1] + 1][current_pos[0] + 1] # Top Right
-            self.test_node(node, open_set, current_node, 14)
+            self.__test_node(node, open_set, current_node, 14)
 
-        if (current_pos[0] - 1 >= 0 and current_pos[1] + 1 < self.y_lim):
+        if (current_pos[0] - 1 >= 0 and current_pos[1] + 1 < self.__y_lim):
             node = grid_nodes[current_pos[1] + 1][current_pos[0] - 1] # Top Left
-            self.test_node(node, open_set, current_node, 14)
+            self.__test_node(node, open_set, current_node, 14)
 
-        if (current_pos[0] + 1 <= self.x_lim and current_pos[1] - 1 > 0):
+        if (current_pos[0] + 1 <= self.__x_lim and current_pos[1] - 1 > 0):
             node = grid_nodes[current_pos[1] - 1][current_pos[0] + 1] # Bottom Right
-            self.test_node(node, open_set, current_node, 14)
+            self.__test_node(node, open_set, current_node, 14)
 
         if (current_pos[0] - 1 >= 0 and current_pos[1] - 1 > 0):
             node = grid_nodes[current_pos[1] - 1][current_pos[0] - 1] # Bottom Left
-            self.test_node(node, open_set, current_node, 14)
+            self.__test_node(node, open_set, current_node, 14)
 
 
-    def test_node(self, node, open_set, current_node, cost):
+    def __test_node(self, node, open_set, current_node, cost):
         if (node.isclosed() == False and node.getObstacle() == False):
             if (node not in open_set):
                 open_set.append(node) # Right
@@ -607,7 +607,7 @@ class Robot:
                 node.setParent(current_node)
 
 
-    def find_smallest(self, open_set):
+    def __find_smallest(self, open_set):
         if (len(open_set) == 1):
             return open_set[0]
         smallest = 0
@@ -638,7 +638,7 @@ class Robot:
 
 
     def print_grid(self): # Print out the grid, with 0 meaning no obstacle and 1 an obstacle
-        for i in range (self.y_lim,-1,-1):
+        for i in range (self.__y_lim,-1,-1):
             print(self.grid_map[i])
 
 
