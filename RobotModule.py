@@ -35,8 +35,6 @@ class Robot(Singleton):
     __OC2_PIN = 27
     __OC2_PIN_R1 = 21
     __OC2_PIN_R2 = 27
-    __TRIGGER_PIN = 18
-    __ECHO_PIN = 23
     __left_pwm = 0
     __right_pwm = 0
     __pwm_scale = 0
@@ -119,8 +117,6 @@ class Robot(Singleton):
 
         GPIO.setup(self.__SW1_PIN, GPIO.IN)
         GPIO.setup(self.__SW2_PIN, GPIO.IN)
-        GPIO.setup(self.__TRIGGER_PIN, GPIO.OUT)
-        GPIO.setup(self.__ECHO_PIN, GPIO.IN)
 
     def __set_motors(self, __left_pwm, left_dir, __right_pwm, right_dir):
         self.__set_driver_pins(__left_pwm, left_dir, __right_pwm, right_dir)

@@ -13,7 +13,6 @@
 
 - Possibly just always use pathfind for reset, might be more accurate
 
-- Go through the intitioator method and remove stuff about pins im not using and above it in global variables
 
 
 
@@ -21,4 +20,3 @@
 - check if methods are blocking
 
 
-- make singleton
