@@ -19,3 +19,7 @@
 
 - sleep timer for leds
 - check if methods are blocking
+
+- switch left and right 
+- make singleton
+- make functions private
