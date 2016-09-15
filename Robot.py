@@ -71,10 +71,10 @@ class Robot(Singleton):
         cls.movement.change_rot(current_rot, goal_rot)
 
     def get_pos(cls):
-        cls.movement.get_pos()
+        return cls.movement.get_pos()
 
     def get_rot(cls):
-        cls.movement.get_rot()
+        return cls.movement.get_rot()
 
     def add_obstacles(cls, obstacles):
         cls.movement.add_obstacles(obstacles)
@@ -83,7 +83,7 @@ class Robot(Singleton):
         cls.movement.reset_obstacles()
 
     def pathfind(cls, start_pos, goal_pos):
-        cls.movement.pathfind(start_pos, goal_pos)
+        return cls.movement.pathfind(start_pos, goal_pos)
 
     def set_start_pos(cls, x, y):
         cls.movement.set_start_pos(x, y)
@@ -92,15 +92,15 @@ class Robot(Singleton):
         cls.movement.set_start_rot(rotation)
 
     def get_start_pos(cls):
-        cls.movement.get_start_pos()
+        return cls.movement.get_start_pos()
 
     def get_start_rot(cls):
-        cls.movement.get_start_rot()
+        return cls.movement.get_start_rot()
 
     def print_grid(cls):
         cls.movement.print_grid()
 
-    
+
 
 
 
