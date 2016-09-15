@@ -264,7 +264,7 @@ class Movement(Singleton):
         else:
             return False # The next move won't violate the boundaries
 
-    def reset(self):
+    def reset_position(self):
         print("Resetting Position of Robot")
         # Reverse if the robot has the correct opposite rotation that it needs to be in
         # [TODO] Move diagonally?
@@ -636,7 +636,7 @@ class Movement(Singleton):
 
 
     def __del__(self):
-        self.reset() # Reset robot to start position
+        self.reset_position() # Reset robot to start position
         self.set_led_green(0) # Set green led off
         self.set_led_red(0) # Set red led off
         self.cleanup() # Cleanup gpio pins
