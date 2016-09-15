@@ -17,7 +17,7 @@ class _Singleton(type):
 class Singleton(_Singleton('SingletonMeta', (object,), {})): pass
 
 
-class Robot(Singleton):
+class Movement(Singleton):
     pass
 
 
@@ -27,14 +27,8 @@ class Robot(Singleton):
     __LEFT_PWM_PIN = 17
     __LEFT_1_PIN = 17
     __LEFT_2_PIN = 4
-    __SW1_PIN = 11
-    __SW2_PIN = 9
     __LED1_PIN = 8
     __LED2_PIN = 7
-    __OC1_PIN = 22
-    __OC2_PIN = 27
-    __OC2_PIN_R1 = 21
-    __OC2_PIN_R2 = 27
     __left_pwm = 0
     __right_pwm = 0
     __pwm_scale = 0
@@ -85,7 +79,7 @@ class Robot(Singleton):
                 [0,0,0,0,0,0,0,0,0,0],
                 [0,0,0,0,0,0,0,0,0,0]]
 
-    def __init__(self,revision=2):
+    def __init__(self):
 
         self.__pwm_scale = 1
 
@@ -107,16 +101,6 @@ class Robot(Singleton):
         GPIO.setup(self.__LED1_PIN, GPIO.OUT)
         GPIO.setup(self.__LED2_PIN, GPIO.OUT)
 
-        GPIO.setup(self.__OC1_PIN, GPIO.OUT)
-        if revision == 1:
-            self.__OC2_PIN = self.__OC2_PIN_R1
-        else:
-            self.__OC2_PIN = self.__OC2_PIN_R2
-
-        GPIO.setup(self.__OC2_PIN_R2, GPIO.OUT)
-
-        GPIO.setup(self.__SW1_PIN, GPIO.IN)
-        GPIO.setup(self.__SW2_PIN, GPIO.IN)
 
     def __set_motors(self, __left_pwm, left_dir, __right_pwm, right_dir):
         self.__set_driver_pins(__left_pwm, left_dir, __right_pwm, right_dir)
