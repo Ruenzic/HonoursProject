@@ -21,14 +21,14 @@ class Movement(Singleton):
     pass
 
 
-    __RIGHT_PWM_PIN = 10
-    __RIGHT_1_PIN = 10
-    __RIGHT_2_PIN = 25
-    __LEFT_PWM_PIN = 17
-    __LEFT_1_PIN = 17
-    __LEFT_2_PIN = 4
-    __LED1_PIN = 8
-    __LED2_PIN = 7
+    __RIGHT_PWM_PIN = 19 # 10
+    __RIGHT_1_PIN = 19 # 10
+    __RIGHT_2_PIN = 22 # 25
+    __LEFT_PWM_PIN = 11 # 17
+    __LEFT_1_PIN = 11 # 17
+    __LEFT_2_PIN = 7 # 4
+    __LED1_PIN = 24 # 8
+    __LED2_PIN = 26 # 7
     __left_pwm = 0
     __right_pwm = 0
     __pwm_scale = 0
@@ -83,7 +83,7 @@ class Movement(Singleton):
 
         self.__pwm_scale = 1
 
-        GPIO.setmode(GPIO.BCM)
+        GPIO.setmode(GPIO.BOARD)
         GPIO.setwarnings(False)
 
         GPIO.setup(self.__LEFT_PWM_PIN, GPIO.OUT)
