@@ -25,6 +25,8 @@ class Robot(Singleton):
     def __init__(cls):
         print("Created Robot")
 
+    #Movement Functions
+
     def forward(cls, steps = 1):
         cls.movement.forward(steps)
 
@@ -39,12 +41,6 @@ class Robot(Singleton):
 
     def stop(cls):
         cls.movement.stop()
-
-    def set_led_red(cls, state):
-        cls.movement.set_led_red(state)
-
-    def set_led_green(cls, state):
-        cls.movement.set_led_green(state)
 
     def cleanup(cls):
         cls.movement.cleanup()
@@ -101,8 +97,65 @@ class Robot(Singleton):
         cls.movement.print_grid()
 
 
+    #Camera Functions
+
+    def take_photo(cls, fileName):
+        cls.camera.take_photo(fileName)
+
+    def detect_colour(cls, fileName):
+        return cls.camera.detect_colour(fileName)
+
+    #Ultrasonic Functions
+
+    def get_distance(cls):
+        return cls.ultrasonic.get_distance()
+
+    #Infrared Functions
+
+    def detect_obstacle(cls):
+        return cls.ir.detect_obstacle()
+
+    def wait_for_obstacle(cls):
+        return cls.ir.wait_for_obstacle()
+
+    #LED Functions
+
+    def red_on(cls):
+        cls.led.red_on()
+
+    def red_off(cls):
+        cls.led.red_off()
+
+    def red_flash(cls):
+        cls.led.red_flash()
+
+    def blue_on(cls):
+        cls.led.blue_on()
+
+    def blue_off(cls):
+        cls.led.blue_off()
+
+    def blue_flash(cls):
+        cls.led.blue_flash()
+
+    def yellow_on(cls):
+        cls.led.yellow_on()
+
+    def yellow_off(cls):
+        cls.led.yellow_off()
+
+    def yellow_flash(cls):
+        cls.led.yellow_flash()
 
 
+    def reset(cls):
+        cls.movement.reset_position()
+        cls.movement.set_led_green(0)
+        cls.movement.set_led_red(0)
+        cls.led.blue_off()
+        cls.led.red_off()
+        cls.led.yellow_off()
+        cls.movement.cleanup()
 
 
 
