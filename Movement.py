@@ -101,6 +101,9 @@ class Movement(Singleton):
         GPIO.setup(self.__LED1_PIN, GPIO.OUT)
         GPIO.setup(self.__LED2_PIN, GPIO.OUT)
 
+        self.__current_pos = self.start_pos
+        self.__current_rot = self.start_rot
+
 
     def __set_motors(self, __left_pwm, left_dir, __right_pwm, right_dir):
         self.__set_driver_pins(__left_pwm, left_dir, __right_pwm, right_dir)
