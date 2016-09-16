@@ -38,18 +38,24 @@ class Movement(Singleton):
 
     __move_delay = 0.4 #See what happens when you change delay
     __voltage = 5
-    __left_voltage_scale = 0.8
-    __right_voltage_scale = 0.8
+    __left_voltage_scale = 0.65
+    __right_voltage_scale = 0.695
+
+    # Make a forwards and reverse sleep timers, different
+    # For forward 1.0
+    # 1.3 for reverse
+
+    # will need to make a new reverse diagonal
 
     __left_turn_voltage = 0.8
     __right_turn_voltage = 0.8
 
     __step_time = 1.0
-    __step_time_diagonal = 1.4
+    __step_time_diagonal = 1.6
 
     __turn_time = 0.335
 
-    start_pos = [0,0]
+    start_pos = [5,5]
     start_rot = 0
     __current_pos = [0,0]
     __current_rot = 0
