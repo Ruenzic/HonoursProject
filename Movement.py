@@ -38,8 +38,11 @@ class Movement(Singleton):
 
     __move_delay = 0.4 #See what happens when you change delay
     __voltage = 5
-    __left_voltage_scale = 0.65
-    __right_voltage_scale = 0.695
+    __left_voltage_scale_reverse = 0.66
+    __right_voltage_scale_reverse = 0.7
+
+    __left_voltage_scale_forward = 0.65
+    __right_voltage_scale_forward = 0.735
 
     # Make a forwards and reverse sleep timers, different
     # For forward 1.0
@@ -50,7 +53,7 @@ class Movement(Singleton):
     __left_turn_voltage = 0.8
     __right_turn_voltage = 0.8
 
-    __step_time = 1.0
+    __step_time = 1.15
     __step_time_diagonal = 1.6
 
     __turn_time = 0.335
@@ -131,7 +134,7 @@ class Movement(Singleton):
             # When moving a step forward while at 45 degrees, so rotations 1,5,7,3. You must move root(2) steps forward for every step.
             # Use step_time_diagonal instead of normal step_time
             for num in range(0,steps):
-                self.__set_motors(self.__left_voltage_scale, 1, self.__right_voltage_scale, 1)
+                self.__set_motors(self.__left_voltage_scale_forward, 1, self.__right_voltage_scale_forward, 1)
                 if (self.__current_rot == 1 or self.__current_rot == 5 or self.__current_rot == 7 or self.__current_rot == 3):
                     time.sleep(self.__step_time_diagonal)
                 else:
@@ -154,7 +157,7 @@ class Movement(Singleton):
         else:
             print("Moving Robot Backward %d Steps" % steps) # Debugging statement
             for num in range(0,steps):
-                self.__set_motors(self.__left_voltage_scale, 0, self.__right_voltage_scale, 0)
+                self.__set_motors(self.__left_voltage_scale_reverse, 0, self.__right_voltage_scale_reverse, 0)
                 if (self.__current_rot == 1 or self.__current_rot == 5 or self.__current_rot == 7 or self.__current_rot == 3):
                     time.sleep(self.__step_time_diagonal)
                 else:
@@ -359,12 +362,12 @@ class Movement(Singleton):
     def cont_forward(self): # Move the robot forward continuously with no sleep or delay
         self.stop() # Stop motors before moving them again
         print("Moving Robot Forward Indefinitely")
-        self.__set_motors(self.__left_voltage_scale, 1, self.__right_voltage_scale, 1)
+        self.__set_motors(self.__left_voltage_scale_forward, 1, self.__right_voltage_scale_forward, 1)
 
     def cont_reverse(self): # Move the robot backwards continuously with no sleep or delay
         self.stop() # Stop motors before moving them again
         print("Moving Robot Backward Indefinitely")
-        self.__set_motors(self.__left_voltage_scale, 0, self.__right_voltage_scale, 0)
+        self.__set_motors(self.__left_voltage_scale_reverse, 0, self.__right_voltage_scale_reverse, 0)
 
     def cont_left(self): # Turn the robot left continuously with no sleep or delay
         self.stop() # Stop motors before moving them again
