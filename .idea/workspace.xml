@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="df2098f8-7fe8-406a-8e4e-2b968d4f78a6" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IPUpdater.py" afterPath="$PROJECT_DIR$/IPUpdater.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Repo.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -37,7 +36,7 @@
       <file leaf-file-name="Movement.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Movement.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-1.2592592">
+            <state vertical-scroll-proportion="0.0">
               <caret line="106" column="43" selection-start-line="106" selection-start-column="43" selection-end-line="106" selection-end-column="43" />
               <folding>
                 <element signature="e#15225#15430#0" expanded="false" />
@@ -134,7 +133,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -156,6 +154,7 @@
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -351,6 +350,58 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/IPUpdater.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Movement.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="106" column="43" selection-start-line="106" selection-start-column="43" selection-end-line="106" selection-end-column="43" />
+          <folding>
+            <element signature="e#15225#15430#0" expanded="false" />
+            <element signature="e#15523#15706#0" expanded="false" />
+            <element signature="e#15800#15984#0" expanded="false" />
+            <element signature="e#16106#18995#0" expanded="false" />
+            <element signature="e#19119#19695#0" expanded="false" />
+            <element signature="e#19773#19798#0" expanded="false" />
+            <element signature="e#19866#19891#0" expanded="false" />
+            <element signature="e#19941#20093#0" expanded="false" />
+            <element signature="e#20134#20260#0" expanded="false" />
+            <element signature="e#20316#23473#0" expanded="false" />
+            <element signature="e#23603#25260#0" expanded="false" />
+            <element signature="e#25334#25715#0" expanded="false" />
+            <element signature="e#25767#26093#0" expanded="false" />
+            <element signature="e#26197#26248#0" expanded="false" />
+            <element signature="e#26346#26371#0" expanded="false" />
+            <element signature="e#26448#26469#0" expanded="false" />
+            <element signature="e#26546#26567#0" expanded="false" />
+            <element signature="e#26671#26743#0" expanded="false" />
+            <element signature="e#26777#26969#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Node.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rrb3.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="25" column="17" selection-start-line="25" selection-start-column="17" selection-end-line="25" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/IPUpdater.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -783,7 +834,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Movement.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.2592592">
+        <state vertical-scroll-proportion="0.0">
           <caret line="106" column="43" selection-start-line="106" selection-start-column="43" selection-end-line="106" selection-end-column="43" />
           <folding>
             <element signature="e#15225#15430#0" expanded="false" />
