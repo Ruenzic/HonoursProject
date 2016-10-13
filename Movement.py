@@ -60,7 +60,7 @@ class Movement(Singleton):
 
     start_pos = [2,3]
     start_rot = 0
-    __current_pos = [0,0]
+    __current_pos = [3,2]
     __current_rot = 0
 
     __x_lim = 5 # Bounds for the grid/enclosure. X[0,10]
@@ -105,9 +105,6 @@ class Movement(Singleton):
 
         GPIO.setup(self.__LED1_PIN, GPIO.OUT)
         GPIO.setup(self.__LED2_PIN, GPIO.OUT)
-
-        self.__current_pos = self.start_pos
-        self.__current_rot = self.start_rot
 
 
     def __set_motors(self, __left_pwm, left_dir, __right_pwm, right_dir):
