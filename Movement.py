@@ -60,7 +60,7 @@ class Movement(Singleton):
 
     start_pos = [2,3]
     start_rot = 0
-    __current_pos = [3,2]
+    __current_pos = [2,3]
     __current_rot = 0
 
     __x_lim = 5 # Bounds for the grid/enclosure. X[0,10]
