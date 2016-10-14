@@ -106,7 +106,7 @@ class Movement(Singleton):
         GPIO.setup(self.__LED1_PIN, GPIO.OUT)
         GPIO.setup(self.__LED2_PIN, GPIO.OUT)
 
-        with f as open("/tmp/robotPos.txt", "w"):
+        with open("/tmp/robotPos.txt", "w") as f:
             pos = self.current_pos
             f.write("%d,%d,%d\n" % (pos[0], pos[1], self.current_rot))
 
@@ -125,7 +125,7 @@ class Movement(Singleton):
         GPIO.output(self.__RIGHT_2_PIN, not right_dir)
 
     def __update_txt(self):
-        with f as open("/tmp/robotPos.txt", "w"):
+        with open("/tmp/robotPos.txt", "w") as f:
             pos = self.get_pos()
             rot = self.get_rot()
             f.write("%d,%d,%d\n" % (pos[0], pos[1], rot))
