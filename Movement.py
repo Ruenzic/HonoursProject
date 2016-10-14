@@ -60,8 +60,8 @@ class Movement(Singleton):
 
     start_pos = [2,3]
     start_rot = 0
-    __current_pos = [2,3]
-    __current_rot = 0
+    current_pos = [2,3]
+    current_rot = 0
 
     __x_lim = 5 # Bounds for the grid/enclosure. X[0,10]
     __y_lim = 7 # Bounds for the grid/enclosure. Y[0,10]
@@ -120,10 +120,16 @@ class Movement(Singleton):
         GPIO.output(self.__RIGHT_1_PIN, right_dir)
         GPIO.output(self.__RIGHT_2_PIN, not right_dir)
 
+     def __update_txt():
+        with f as open("/tmp/robotPos.txt", "w"):
+            pos = self.get_pos()
+            rot = self.get_rot()
+            f.write("%d,%d,%d\n" % (pos[0], pos[1], rot))
+
     def forward(self, steps = 1): # 1 step by default
         self.stop() # Stop motors before moving them again
 
-        if (self.__check_pos(self.__current_pos[0], self.__current_pos[1], steps)):
+        if (self.__check_pos(self.current_pos[0], self.current_pos[1], steps)):
             print("Requested move will either go out of bounds or hit an obstacle and therefore can't be performed")
         else:
             print("Moving Robot Forward %d Steps" % steps) # Debugging statement
@@ -132,16 +138,16 @@ class Movement(Singleton):
             # Use step_time_diagonal instead of normal step_time
             for num in range(0,steps):
                 self.__set_motors(self.__left_voltage_scale_forward, 1, self.__right_voltage_scale_forward, 1)
-                if (self.__current_rot == 1 or self.__current_rot == 5 or self.__current_rot == 7 or self.__current_rot == 3):
+                if (self.current_rot == 1 or self.current_rot == 5 or self.current_rot == 7 or self.current_rot == 3):
                     time.sleep(self.__step_time_diagonal)
                 else:
                     time.sleep(self.__step_time)
                 self.stop()    # Delay between each movement
                 time.sleep(self.__move_delay)
             self.__manage_pos(steps)
-            print("Rotation:",self.__current_rot) # Debugging
-            print("X:",self.__current_pos[0])
-            print("Y:",self.__current_pos[1])
+            print("Rotation:",self.current_rot) # Debugging
+            print("X:",self.current_pos[0])
+            print("Y:",self.current_pos[1])
 
     def stop(self):
         self.__set_motors(0, 0, 0, 0)
@@ -149,22 +155,22 @@ class Movement(Singleton):
     def reverse(self, steps = 1): # 1 step by default
         self.stop() # Stop motors before moving them again
 
-        if (self.__check_pos(self.__current_pos[0], self.__current_pos[1], steps * -1)):
+        if (self.__check_pos(self.current_pos[0], self.current_pos[1], steps * -1)):
             print("Requested move will either go out of bounds or hit an obstacle and therefore can't be performed")
         else:
             print("Moving Robot Backward %d Steps" % steps) # Debugging statement
             for num in range(0,steps):
                 self.__set_motors(self.__left_voltage_scale_reverse, 0, self.__right_voltage_scale_reverse, 0)
-                if (self.__current_rot == 1 or self.__current_rot == 5 or self.__current_rot == 7 or self.__current_rot == 3):
+                if (self.current_rot == 1 or self.current_rot == 5 or self.current_rot == 7 or self.current_rot == 3):
                     time.sleep(self.__step_time_diagonal)
                 else:
                     time.sleep(self.__step_time)
                 self.stop()    # Delay between each movement
                 time.sleep(self.__move_delay)
             self.__manage_pos(steps * -1) # Make the steps negative so that the manage_pos func will move robot in correct dir based on its rot
-            print("Rotation:",self.__current_rot) # Debugging
-            print("X:",self.__current_pos[0])
-            print("Y:",self.__current_pos[1])
+            print("Rotation:",self.current_rot) # Debugging
+            print("X:",self.current_pos[0])
+            print("Y:",self.current_pos[1])
 
     def left(self, steps=1): # 45 degrees by default
         self.stop() # Stop motors before moving them again
@@ -176,11 +182,11 @@ class Movement(Singleton):
             time.sleep(self.__turn_time)
             self.stop()    # Delay between each movement
             time.sleep(self.__move_delay)
-        self.__current_rot -= steps
+        self.current_rot -= steps
         self.__manage_rot()
-        print("Rotation:",self.__current_rot) # Debugging
-        print("X:",self.__current_pos[0])
-        print("Y:",self.__current_pos[1])
+        print("Rotation:",self.current_rot) # Debugging
+        print("X:",self.current_pos[0])
+        print("Y:",self.current_pos[1])
 
     def right(self, steps=1): # 45 degrees by default
         self.stop() # Stop motors before moving them again
@@ -192,11 +198,11 @@ class Movement(Singleton):
             time.sleep(self.__turn_time)
             self.stop()    # Delay between each movement
             time.sleep(self.__move_delay)
-        self.__current_rot += steps
+        self.current_rot += steps
         self.__manage_rot()
-        print("Rotation:",self.__current_rot) # Debugging
-        print("X:",self.__current_pos[0])
-        print("Y:",self.__current_pos[1])
+        print("Rotation:",self.current_rot) # Debugging
+        print("X:",self.current_pos[0])
+        print("Y:",self.current_pos[1])
 
     def set_led_red(self, state): # 0/1 for state
         GPIO.output(self.__LED1_PIN, state)
@@ -208,59 +214,61 @@ class Movement(Singleton):
         GPIO.cleanup()
 
     def __manage_rot(self): # Manage the current rotation by removing 360 degrees when needed.
-        if (self.__current_rot >= 8):
-            self.__current_rot -= 8
-        elif (self.__current_rot < 0):
-            self.__current_rot += 8
+        if (self.current_rot >= 8):
+            self.current_rot -= 8
+        elif (self.current_rot < 0):
+            self.current_rot += 8
 
 
     def __manage_pos(self, steps): # Method to manage the position of the robot in the grid world (keep track)
 
         self.__manage_rot() # Make sure rotation is in positive form for ease
 
-        if (self.__current_rot == 0): # Increase the y value by the number of steps
-            self.__current_pos[1] += steps
-        elif (self.__current_rot == 1): # Increase x and y
-            self.__current_pos[0] += steps
-            self.__current_pos[1] += steps
-        elif (self.__current_rot == 2): # Increase x
-            self.__current_pos[0] += steps
-        elif (self.__current_rot == 3): # Increase x, Decrease y
-            self.__current_pos[0] += steps
-            self.__current_pos[1] -= steps
-        elif (self.__current_rot == 4): # Decrease y
-            self.__current_pos[1] -= steps
-        elif (self.__current_rot == 5): # Decrease x and y
-            self.__current_pos[0] -= steps
-            self.__current_pos[1] -= steps
-        elif (self.__current_rot == 6): # Decrease x
-            self.__current_pos[0] -= steps
-        elif (self.__current_rot == 7): # Decrease x, Increase y
-            self.__current_pos[0] -= steps
-            self.__current_pos[1] += steps
+        if (self.current_rot == 0): # Increase the y value by the number of steps
+            self.current_pos[1] += steps
+        elif (self.current_rot == 1): # Increase x and y
+            self.current_pos[0] += steps
+            self.current_pos[1] += steps
+        elif (self.current_rot == 2): # Increase x
+            self.current_pos[0] += steps
+        elif (self.current_rot == 3): # Increase x, Decrease y
+            self.current_pos[0] += steps
+            self.current_pos[1] -= steps
+        elif (self.current_rot == 4): # Decrease y
+            self.current_pos[1] -= steps
+        elif (self.current_rot == 5): # Decrease x and y
+            self.current_pos[0] -= steps
+            self.current_pos[1] -= steps
+        elif (self.current_rot == 6): # Decrease x
+            self.current_pos[0] -= steps
+        elif (self.current_rot == 7): # Decrease x, Increase y
+            self.current_pos[0] -= steps
+            self.current_pos[1] += steps
+
+        self.__update_txt()
 
     def __check_pos(self, x, y, steps): # Method to check if moving the robot will move it out of bounds.
 
         self.__manage_rot() # Make sure rotation is in positive form for ease
 
-        if (self.__current_rot == 0): # Increase the y value by the number of steps
+        if (self.current_rot == 0): # Increase the y value by the number of steps
             y += steps
-        elif (self.__current_rot == 1): # Increase x and y
+        elif (self.current_rot == 1): # Increase x and y
             x += steps
             y += steps
-        elif (self.__current_rot == 2): # Increase x
+        elif (self.current_rot == 2): # Increase x
             x += steps
-        elif (self.__current_rot == 3): # Increase x, Decrease y
+        elif (self.current_rot == 3): # Increase x, Decrease y
             x += steps
             y -= steps
-        elif (self.__current_rot == 4): # Decrease y
+        elif (self.current_rot == 4): # Decrease y
             y -= steps
-        elif (self.__current_rot == 5): # Decrease x and y
+        elif (self.current_rot == 5): # Decrease x and y
             x -= steps
             y -= steps
-        elif (self.__current_rot == 6): # Decrease x
+        elif (self.current_rot == 6): # Decrease x
             x -= steps
-        elif (self.__current_rot == 7): # Decrease x, Increase y
+        elif (self.current_rot == 7): # Decrease x, Increase y
             x -= steps
             y += steps
 
@@ -284,74 +292,74 @@ class Movement(Singleton):
             starty = self.get_start_pos()[1]
             startrot = self.get_start_rot()
 
-            if (self.__current_pos[1] > starty):
-                if (self.__current_rot != 4 and self.__current_rot != 0):
+            if (self.current_pos[1] > starty):
+                if (self.current_rot != 4 and self.current_rot != 0):
                     # rotate towards the start
-                    if (self.__current_rot >= 0 and self.__current_rot < 4):
-                        self.right(4 - self.__current_rot)
-                    elif (self.__current_rot > 4):
-                        self.left(self.__current_rot - 4)
-                if (self.__current_rot == 4):
-                    self.forward(self.__current_pos[1] - starty)
-                elif (self.__current_rot == 0):
-                    self.reverse(self.__current_pos[1] - starty)
+                    if (self.current_rot >= 0 and self.current_rot < 4):
+                        self.right(4 - self.current_rot)
+                    elif (self.current_rot > 4):
+                        self.left(self.current_rot - 4)
+                if (self.current_rot == 4):
+                    self.forward(self.current_pos[1] - starty)
+                elif (self.current_rot == 0):
+                    self.reverse(self.current_pos[1] - starty)
 
-            elif (self.__current_pos[1] < starty):
-                if (self.__current_rot != 0 and self.__current_rot != 4):
+            elif (self.current_pos[1] < starty):
+                if (self.current_rot != 0 and self.current_rot != 4):
                     # rotate towards the start
-                    if (self.__current_rot >= 0 and self.__current_rot < 4):
-                        self.left(self.__current_rot)
-                    elif (self.__current_rot > 4):
-                        self.right(8 - self.__current_rot)
-                if (self.__current_rot == 0):
-                    self.forward(starty - self.__current_pos[1]) # Change negative to positive
-                elif (self.__current_rot == 4):
-                    self.reverse(starty - self.__current_pos[1])
+                    if (self.current_rot >= 0 and self.current_rot < 4):
+                        self.left(self.current_rot)
+                    elif (self.current_rot > 4):
+                        self.right(8 - self.current_rot)
+                if (self.current_rot == 0):
+                    self.forward(starty - self.current_pos[1]) # Change negative to positive
+                elif (self.current_rot == 4):
+                    self.reverse(starty - self.current_pos[1])
 
             # Move on the x axis
-            if (self.__current_pos[0] > startx):
-                if (self.__current_rot != 6 and self.__current_rot != 2):
+            if (self.current_pos[0] > startx):
+                if (self.current_rot != 6 and self.current_rot != 2):
                     # rotate towards the start
-                    if (self.__current_rot >= 2 and self.__current_rot < 6):
-                        self.right(6 - self.__current_rot)
-                    elif (self.__current_rot < 2):
-                        self.left(2 + self.__current_rot)
-                    elif (self.__current_rot > 6):
-                        self.left(7 - self.__current_rot)
-                if (self.__current_rot == 6):
-                    self.forward(self.__current_pos[0] - startx)
-                elif (self.__current_rot == 2):
-                    self.reverse(self.__current_pos[0] - startx)
+                    if (self.current_rot >= 2 and self.current_rot < 6):
+                        self.right(6 - self.current_rot)
+                    elif (self.current_rot < 2):
+                        self.left(2 + self.current_rot)
+                    elif (self.current_rot > 6):
+                        self.left(7 - self.current_rot)
+                if (self.current_rot == 6):
+                    self.forward(self.current_pos[0] - startx)
+                elif (self.current_rot == 2):
+                    self.reverse(self.current_pos[0] - startx)
 
-            elif (self.__current_pos[0] < startx):
-                if (self.__current_rot != 2 and self.__current_rot != 6):
+            elif (self.current_pos[0] < startx):
+                if (self.current_rot != 2 and self.current_rot != 6):
                     # rotate towards the start
-                    if (self.__current_rot >= 2 and self.__current_rot < 6):
-                        self.left(self.__current_rot - 2)
-                    elif (self.__current_rot < 2):
-                        self.right(2 - self.__current_rot)
-                    elif (self.__current_rot > 6):
-                        self.right(8 - self.__current_rot + 1)
-                if (self.__current_rot == 2):
-                    self.forward(startx - self.__current_pos[0]) # Change the negative to positive
-                elif (self.__current_rot == 6):
+                    if (self.current_rot >= 2 and self.current_rot < 6):
+                        self.left(self.current_rot - 2)
+                    elif (self.current_rot < 2):
+                        self.right(2 - self.current_rot)
+                    elif (self.current_rot > 6):
+                        self.right(8 - self.current_rot + 1)
+                if (self.current_rot == 2):
+                    self.forward(startx - self.current_pos[0]) # Change the negative to positive
+                elif (self.current_rot == 6):
                     self.reverse(startx - self.currrent_pos[0])
 
 
             # Set the rotation of the robot back to the original direction
             # Check to see if rotation is bigger or smaller than 4, then rotate the shorter direction
-            if (self.__current_rot != startrot):
+            if (self.current_rot != startrot):
                 # rotate towards the start
-                self.change_rot(self.__current_rot, startrot)
+                self.change_rot(self.current_rot, startrot)
 
         else:
             self.follow_path(self.pathfind(self.get_pos(),self.get_start_pos()))
             if (self.get_rot() != self.get_start_rot()):
                 self.change_rot(self.get_rot(),self.get_start_rot())
 
-        self.__current_pos[0] = self.start_pos[0]
-        self.__current_pos[1] = self.start_pos[1]
-        self.__current_rot = self.start_rot
+        self.current_pos[0] = self.start_pos[0]
+        self.current_pos[1] = self.start_pos[1]
+        self.current_rot = self.start_rot
 
     #[TODO] Allow the use of this for when students are with the robot and can reset the robot manually after.
     #[TODO] Use Jeremy's sensor to check if about to hit an obstacle, if so stop motors, in the contForward and Reverse
@@ -454,10 +462,10 @@ class Movement(Singleton):
             self.right(rightTurn)
 
     def get_pos(self): # Return [x,y] position of robot to the user
-        return self.__current_pos
+        return self.current_pos
 
     def get_rot(self): # Return rotation variable to user
-        return self.__current_rot
+        return self.current_rot
 
     def add_obstacles(self, obstacles):
         num = len(obstacles)
@@ -645,32 +653,3 @@ class Movement(Singleton):
         self.set_led_green(0) # Set green led off
         self.set_led_red(0) # Set red led off
         self.cleanup() # Cleanup gpio pins
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
