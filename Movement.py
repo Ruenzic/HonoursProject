@@ -106,6 +106,10 @@ class Movement(Singleton):
         GPIO.setup(self.__LED1_PIN, GPIO.OUT)
         GPIO.setup(self.__LED2_PIN, GPIO.OUT)
 
+        with f as open("/tmp/robotPos.txt", "w"):
+            pos = self.current_pos
+            f.write("%d,%d,%d\n" % (pos[0], pos[1], self.current_rot))
+
 
     def __set_motors(self, __left_pwm, left_dir, __right_pwm, right_dir):
         self.__set_driver_pins(__left_pwm, left_dir, __right_pwm, right_dir)
@@ -120,7 +124,7 @@ class Movement(Singleton):
         GPIO.output(self.__RIGHT_1_PIN, right_dir)
         GPIO.output(self.__RIGHT_2_PIN, not right_dir)
 
-     def __update_txt():
+    def __update_txt(self):
         with f as open("/tmp/robotPos.txt", "w"):
             pos = self.get_pos()
             rot = self.get_rot()
