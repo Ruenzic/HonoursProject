@@ -7,6 +7,7 @@ from Camera import *
 from Infrared import *
 from LED import *
 from Ultrasonic import *
+import time
 
 
 class Robot(Singleton):
@@ -14,7 +15,7 @@ class Robot(Singleton):
     def __init__(self):
         self.__movement = Movement()
         self.camera = Camera()
-        self.ultrasonic = Ultrasonic()
+        self.us = Ultrasonic()
         self.led = LED()
         self.ir = Infrared()
         print("Created Robot")
@@ -42,28 +43,16 @@ class Robot(Singleton):
     def reset_position(self):
         self.__movement.reset_position()
 
-    def cont_forward(self):
-        self.__movement.cont_forward()
-
-    def cont_reverse(self):
-        self.__movement.cont_reverse()
-
-    def cont_left(self):
-        self.__movement.cont_left()
-
-    def cont_right(self):
-        self.__movement.cont_right()
-
     def follow_path(self, nodes_path):
         self.__movement.follow_path(nodes_path)
 
-    def change_rot(self, current_rot, goal_rot):
+    def change_rotation(self, current_rot, goal_rot):
         self.__movement.change_rot(current_rot, goal_rot)
 
-    def get_pos(self):
+    def get_position(self):
         return self.__movement.get_pos()
 
-    def get_rot(self):
+    def get_rotation(self):
         return self.__movement.get_rot()
 
     def add_obstacles(self, obstacles):
@@ -72,8 +61,11 @@ class Robot(Singleton):
     def reset_obstacles(self):
         self.__movement.reset_obstacles()
 
-    def pathfind(self, start_pos, goal_pos):
+    def find_path(self, start_pos, goal_pos):
         return self.__movement.pathfind(start_pos, goal_pos)
+
+    def pathfind(self, goal_pos):
+        self.__movement.follow_path(self.__movement.pathfind(self.__movement.get_position(), goal_pos))
 
     def set_start_pos(self, x, y):
         self.__movement.set_start_pos(x, y)
@@ -94,6 +86,15 @@ class Robot(Singleton):
         self.led.blue_off()
         self.led.red_off()
         self.led.yellow_off()
+
+        self.led.blue_on()
+        self.led.red_on()
+        self.led.yellow_on()
+        time.sleep(1)
+        self.led.blue_off()
+        self.led.red_off()
+        self.led.yellow_off()
+        time.sleep(2)
 
         self.__movement.reset_position()
         self.__movement.set_led_green(0)
