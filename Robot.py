@@ -67,10 +67,10 @@ class Robot(Singleton):
     def pathfind(self, goal_pos):
         self.__movement.follow_path(self.__movement.pathfind(self.__movement.get_position(), goal_pos))
 
-    def set_start_pos(self, x, y):
+    def __set_start_pos(self, x, y):
         self.__movement.set_start_pos(x, y)
 
-    def set_start_rot(self, rotation):
+    def __set_start_rot(self, rotation):
         self.__movement.set_start_rot(rotation)
 
     def get_start_pos(self):
