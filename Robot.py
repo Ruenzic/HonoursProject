@@ -46,8 +46,8 @@ class Robot(Singleton):
     def follow_path(self, nodes_path):
         self.__movement.follow_path(nodes_path)
 
-    def change_rotation(self, current_rot, goal_rot):
-        self.__movement.change_rot(current_rot, goal_rot)
+    def change_rotation(self, goal_rot):
+        self.__movement.change_rot(self.get_rotation(), goal_rot)
 
     def get_position(self):
         return self.__movement.get_pos()
@@ -65,7 +65,7 @@ class Robot(Singleton):
         return self.__movement.pathfind(start_pos, goal_pos)
 
     def pathfind(self, goal_pos):
-        self.__movement.follow_path(self.__movement.pathfind(self.__movement.get_position(), goal_pos))
+        self.follow_path(self.find_path(self.get_position(), goal_pos))
 
     def __set_start_pos(self, x, y):
         self.__movement.set_start_pos(x, y)
