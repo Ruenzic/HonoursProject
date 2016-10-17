@@ -14,9 +14,9 @@ class Camera:
 	self.__camera = PiCamera()
 
 
-    def take_photo(self, fileName):
+    def take_photo(self):
         #Where to save the image to on the raspberry pi
-        path = self.__filePath + str(fileName)+ '.jpg'
+        path = self.__filePath + 'photo.jpg'
 
         #Checks if the file already exists, deletes it if it does
         if os.path.isfile(path) == True:
@@ -32,12 +32,13 @@ class Camera:
         print("Photo taken")    
 
 
-    def detect_colour(self, fileName):
-        path = self.__filePath + str(fileName)+ '.jpg'
+    def detect_colour(self):
+	self.take_photo()
+        path = self.__filePath + 'photo.jpg'
 
         #Checking if file exists
         if os.path.isfile(path) == False:
-            print("Error: file '" + fileName + "' not found!")
+            print("Error: no photo found!")
 
         else:
             im = Image.open(path)

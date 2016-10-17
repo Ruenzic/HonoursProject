@@ -42,17 +42,26 @@ class LED:
         time.sleep(0.1)
 
     def __colourFlash(self, pinNumber):
+	switchBack = False	
+
         GPIO.setmode(GPIO.BOARD)
         GPIO.setwarnings(False)
         colourPin = pinNumber
         GPIO.setup(pinNumber, GPIO.OUT)
 
+	if (GPIO.input(pinNumber) == 1):  #If the light is already on
+        	switchBack = True
+
+
+	GPIO.output(pinNumber, False) #Turns the LED off 
+	time.sleep(0.2)
         GPIO.output(pinNumber, True) #Turns the LED on
-
-        time.sleep(1)   #Waits for 1 second
-
-        GPIO.output(pinNumber, False) #Turns the LED off again
-
+        time.sleep(0.3)
+        GPIO.output(pinNumber, False) 
+	
+	if switchBack:
+		time.sleep(0.2)
+		GPIO.output(pinNumber, True)
 
 
     def red_on(self):
