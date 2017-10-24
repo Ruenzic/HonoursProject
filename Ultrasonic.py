@@ -30,7 +30,7 @@ class Ultrasonic:
             time.sleep(0.00001) # Pulse trigger for 10 microseconds
             GPIO.output(self.__TRIG, False)
             start = time.time()
-          
+
             while GPIO.input(self.__ECHO)==0:
               start = time.time() # Start of the pulse
 
