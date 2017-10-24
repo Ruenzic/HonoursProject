@@ -1,3 +1,6 @@
+#Used the below code to get the IP address from the raspberry pi and updated it to a gist on github, 
+#So that everytime i connect to different wifi hot spots, i didn't need to plug the robot into a monitor to check the address.
+
 
 from datetime import datetime
 from simplegist import Simplegist

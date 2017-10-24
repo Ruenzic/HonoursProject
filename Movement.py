@@ -279,7 +279,7 @@ class Movement(Singleton):
     def reset_position(self):
         print("Resetting Position of Robot")
         # Reverse if the robot has the correct opposite rotation that it needs to be in
-        # [TODO] Move diagonally?
+        
 
         # Move the robot back to the start position
         # Move on the y axis
@@ -359,6 +359,7 @@ class Movement(Singleton):
         self.current_pos[0] = self.start_pos[0]
         self.current_pos[1] = self.start_pos[1]
         self.current_rot = self.start_rot
+
 
     def cont_forward(self): # Move the robot forward continuously with no sleep or delay
         self.stop() # Stop motors before moving them again
