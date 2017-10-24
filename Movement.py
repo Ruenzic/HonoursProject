@@ -21,14 +21,14 @@ class Movement(Singleton):
     pass
 
 
-    __RIGHT_PWM_PIN = 19 # 10
-    __RIGHT_1_PIN = 19 # 10
-    __RIGHT_2_PIN = 22 # 25
-    __LEFT_PWM_PIN = 11 # 17
-    __LEFT_1_PIN = 11 # 17
-    __LEFT_2_PIN = 7 # 4
-    __LED1_PIN = 24 # 8
-    __LED2_PIN = 26 # 7
+    __RIGHT_PWM_PIN = 19
+    __RIGHT_1_PIN = 19
+    __RIGHT_2_PIN = 22
+    __LEFT_PWM_PIN = 11
+    __LEFT_1_PIN = 11
+    __LEFT_2_PIN = 7
+    __LED1_PIN = 24
+    __LED2_PIN = 26
     __left_pwm = 0
     __right_pwm = 0
     __pwm_scale = 0
@@ -279,7 +279,7 @@ class Movement(Singleton):
     def reset_position(self):
         print("Resetting Position of Robot")
         # Reverse if the robot has the correct opposite rotation that it needs to be in
-        # [TODO] Move diagonally?
+        
 
         # Move the robot back to the start position
         # Move on the y axis
@@ -360,8 +360,6 @@ class Movement(Singleton):
         self.current_pos[1] = self.start_pos[1]
         self.current_rot = self.start_rot
 
-    #[TODO] Allow the use of this for when students are with the robot and can reset the robot manually after.
-    #[TODO] Use Jeremy's sensor to check if about to hit an obstacle, if so stop motors, in the contForward and Reverse
 
     def cont_forward(self): # Move the robot forward continuously with no sleep or delay
         self.stop() # Stop motors before moving them again
