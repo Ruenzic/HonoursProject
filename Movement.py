@@ -5,7 +5,6 @@ import RPi.GPIO as GPIO
 import time
 from Node import *
 
-
 class _Singleton(type):
     """ A metaclass that creates a Singleton base class when called. """
     _instances = {}
@@ -16,10 +15,8 @@ class _Singleton(type):
 
 class Singleton(_Singleton('SingletonMeta', (object,), {})): pass
 
-
 class Movement(Singleton):
     pass
-
 
     __RIGHT_PWM_PIN = 19 # 10
     __RIGHT_1_PIN = 19 # 10
@@ -217,7 +214,6 @@ class Movement(Singleton):
             self.current_rot -= 8
         elif (self.current_rot < 0):
             self.current_rot += 8
-
 
     def __manage_pos(self, steps): # Method to manage the position of the robot in the grid world (keep track)
 
@@ -478,7 +474,6 @@ class Movement(Singleton):
             for j in range (0, self.__x_lim + 1):
                 self.grid_map[i][j] = 0
 
-
     def pathfind(self, start_pos, goal_pos):
         print("Running Pathfinding Algorithm")
 
@@ -519,7 +514,6 @@ class Movement(Singleton):
 
         # Note: G cost = Parent G cost + movement cost (10/14)
 
-
         while (len(open_set) > 0 ):
             # Use smallest F value node next in our list
             current_node = self.__find_smallest(open_set)
@@ -533,7 +527,6 @@ class Movement(Singleton):
         # Once the open list is empty, create path
         nodes_path = []
         current = goal_node
-
 
         while (current != start_node):
             try:
@@ -563,7 +556,6 @@ class Movement(Singleton):
 
         #print(len(nodes_path))
         return nodes_path
-
 
     def __add_neighbours(self, grid_nodes, open_set, current_node): # Add the current nodes neighbours to the open_set
         current_pos = current_node.getPosition()
@@ -600,7 +592,6 @@ class Movement(Singleton):
             node = grid_nodes[current_pos[1] - 1][current_pos[0] - 1] # Bottom Left
             self.__test_node(node, open_set, current_node, 14)
 
-
     def __test_node(self, node, open_set, current_node, cost):
         if (node.isclosed() == False and node.getObstacle() == False):
             if (node not in open_set):
@@ -610,7 +601,6 @@ class Movement(Singleton):
                 node.setParent(current_node)
             elif (current_node.getG() + cost < node.getG()):
                 node.setParent(current_node)
-
 
     def __find_smallest(self, open_set):
         if (len(open_set) == 1):
@@ -624,13 +614,9 @@ class Movement(Singleton):
                     smallest = open_set[i]
         return smallest
 
-
-
-
     def set_start_pos(self, x, y): # Method to set the x and y start position of the robot
         self.start_pos[0] = x
         self.start_pos[1] = y
-
 
     def set_start_rot(self, rotation): # Method to set the start rotation of the robot
         self.start_rot = rotation
@@ -641,11 +627,9 @@ class Movement(Singleton):
     def get_start_rot(self): # Method to return the start rotation
         return self.start_rot
 
-
     def print_grid(self): # Print out the grid, with 0 meaning no obstacle and 1 an obstacle
         for i in range (self.__y_lim,-1,-1):
             print(self.grid_map[i])
-
 
     def __del__(self):
         self.reset_position() # Reset robot to start position
