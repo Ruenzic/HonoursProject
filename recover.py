@@ -1,3 +1,8 @@
+#Method that will get current position written to robotPos.txt
+#and return it to the start position.
+#This is used when the robot has to be force stopped and needs to recover. 
+#Only to be used in emergencies. 
+
 from Movement import *
 from Robot import *
 
